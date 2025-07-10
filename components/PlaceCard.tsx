@@ -22,14 +22,14 @@ const PlaceCard: React.FC<PlaceCardProps> = ({ place, currentLanguage, regionId,
 
   return (
     <div 
-      className="bg-white rounded-xl shadow-lg overflow-hidden transition-all duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-xl cursor-pointer group flex flex-col"
+      className="japanese-card rounded-xl overflow-hidden transition-all duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-xl cursor-pointer group flex flex-col"
       onClick={handlePlaceClick}
       onKeyPress={(e) => e.key === 'Enter' && handlePlaceClick()}
       role="link"
       tabIndex={0}
       aria-label={`${place.name[currentLanguage]} - ${currentLanguage === Language.JA ? '詳細を見る' : 'View Details'}`}
     >
-      <div className="relative overflow-hidden aspect-w-16 aspect-h-9">
+      <div className="relative overflow-hidden aspect-w-16 aspect-h-9 image-hover">
         <div className={`transition-opacity duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}>
           <img 
             src={place.image || fallbackImage}
@@ -47,18 +47,18 @@ const PlaceCard: React.FC<PlaceCardProps> = ({ place, currentLanguage, regionId,
             <div className="w-full h-full bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200"></div>
           </div>
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent opacity-90"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
         <h3 className={`absolute bottom-0 left-0 p-6 text-xl md:text-2xl font-bold text-white ${titleFontFamily} tracking-wide [text-shadow:_2px_2px_4px_rgba(0,0,0,0.8)] w-full`}>
           {place.name[currentLanguage]}
         </h3>
       </div>
-      <div className="p-6 flex-grow flex flex-col space-y-4">
+      <div className="p-6 flex-grow flex flex-col space-y-4 relative z-10">
         <p className={`text-base text-gray-700 ${textFontFamily} leading-relaxed line-clamp-3 flex-grow`}>
           {place.description[currentLanguage]}
         </p>
-        <div className="pt-4 border-t border-gray-100">
+        <div className="pt-4 border-t border-pink-100">
           <span 
-            className={`inline-flex items-center text-sm font-medium text-indigo-600 group-hover:text-indigo-800 transition-colors duration-200 ${textFontFamily}`}
+            className={`inline-flex items-center text-sm font-medium text-pink-600 group-hover:text-pink-700 transition-colors duration-200 ${textFontFamily}`}
             aria-hidden="true" 
           >
             {currentLanguage === Language.JA ? '詳細を見る →' : 

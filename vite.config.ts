@@ -17,6 +17,11 @@ export default defineConfig(({ mode }) => {
     },
     css: {
       postcss: './postcss.config.js',
+      preprocessorOptions: {
+        scss: {
+          additionalData: `@import "./styles/variables.scss";`
+        }
+      }
     },
     build: {
       target: 'esnext',
@@ -26,7 +31,7 @@ export default defineConfig(({ mode }) => {
         output: {
           manualChunks: {
             'vendor': ['react', 'react-dom'],
-            'styles': ['./styles.css']
+            'styles': ['./src/styles/index.css']
           }
         }
       }
@@ -38,6 +43,7 @@ export default defineConfig(({ mode }) => {
       port: 3000,
       open: true,
       cors: true,
-    }
+    },
+    publicDir: 'public'
   };
 });

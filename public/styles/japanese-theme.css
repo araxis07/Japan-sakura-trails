@@ -1,0 +1,172 @@
+/* Japanese Theme Styles */
+.japanese-pattern {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: -1;
+  background: 
+    linear-gradient(to right, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9)),
+    url("data:image/svg+xml,%3Csvg width='40' height='40' viewBox='0 0 40 40' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%23ffd7e5' fill-opacity='0.3' fill-rule='evenodd'%3E%3Cpath d='M0 20C0 8.954 8.954 0 20 0s20 8.954 20 20-8.954 20-20 20S0 31.046 0 20zm20-18c-9.941 0-18 8.059-18 18s8.059 18 18 18 18-8.059 18-18-8.059-18-18-18zm0 2c8.837 0 16 7.163 16 16s-7.163 16-16 16S4 28.837 4 20 11.163 4 20 4z'/%3E%3C/g%3E%3C/svg%3E");
+  animation: patternFloat 60s linear infinite;
+}
+
+.floating-petals {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.petal {
+  position: absolute;
+  background-size: contain;
+  background-repeat: no-repeat;
+  opacity: 0.6;
+  animation: floatPetal 20s linear infinite;
+}
+
+.petal::before {
+  content: '🌸';
+  font-size: 1.5rem;
+  opacity: 0.8;
+}
+
+@keyframes patternFloat {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100px 100px;
+  }
+}
+
+@keyframes floatPetal {
+  0% {
+    transform: translateY(-10%) rotate(0deg);
+    opacity: 0;
+  }
+  10% {
+    opacity: 0.6;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(100vh) rotate(360deg);
+    opacity: 0;
+  }
+}
+
+/* Japanese-style Card Design */
+.japanese-card {
+  position: relative;
+  background: rgba(255, 255, 255, 0.9);
+  border: 1px solid rgba(255, 192, 203, 0.3);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.05);
+}
+
+.japanese-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: 
+    linear-gradient(45deg, transparent 48%, rgba(255, 192, 203, 0.1) 49%, rgba(255, 192, 203, 0.1) 51%, transparent 52%),
+    linear-gradient(-45deg, transparent 48%, rgba(255, 192, 203, 0.1) 49%, rgba(255, 192, 203, 0.1) 51%, transparent 52%);
+  background-size: 20px 20px;
+  opacity: 0.5;
+  pointer-events: none;
+}
+
+/* Japanese-style Headings */
+.japanese-heading {
+  position: relative;
+  padding-bottom: 1rem;
+  margin-bottom: 2rem;
+}
+
+.japanese-heading::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, 
+    rgba(255, 77, 148, 0.8), 
+    rgba(255, 192, 203, 0.3) 50%,
+    rgba(255, 77, 148, 0) 100%
+  );
+}
+
+/* Mount Fuji Silhouette Background */
+.fuji-silhouette {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 30vh;
+  background: 
+    linear-gradient(transparent 50%, rgba(255, 255, 255, 0.1) 50%),
+    linear-gradient(to top, 
+      rgba(135, 206, 235, 0.2) 0%,
+      rgba(135, 206, 235, 0.1) 50%,
+      transparent 100%
+    );
+  clip-path: polygon(
+    0% 100%,
+    35% 100%,
+    50% 20%,
+    65% 100%,
+    100% 100%,
+    100% 100%,
+    0% 100%
+  );
+  z-index: -1;
+  opacity: 0.3;
+}
+
+/* Responsive Japanese Pattern */
+@media (max-width: 768px) {
+  .japanese-pattern {
+    background-size: 30px 30px;
+  }
+  
+  .fuji-silhouette {
+    height: 25vh;
+  }
+}
+
+/* Wave Pattern Animation */
+.wave-pattern {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 10px;
+  background: repeating-linear-gradient(
+    45deg,
+    rgba(255, 192, 203, 0.2),
+    rgba(255, 192, 203, 0.2) 10px,
+    transparent 10px,
+    transparent 20px
+  );
+  animation: waveMove 20s linear infinite;
+}
+
+@keyframes waveMove {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100px 0;
+  }
+}

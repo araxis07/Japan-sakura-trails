@@ -36,12 +36,12 @@ const RegionCard: React.FC<RegionCardProps> = ({ region, currentLanguage, onNavi
 
   return (
     <section 
-      className={`mb-12 md:mb-16 bg-white rounded-2xl shadow-xl hover:shadow-2xl transition-all duration-500 ease-in-out ${className}`}
+      className={`mb-12 md:mb-16 japanese-card rounded-2xl transition-all duration-500 ease-in-out hover:shadow-xl ${className}`}
       aria-labelledby={`region-title-${region.id}`}
     >
       <div className="p-6 md:p-8 lg:p-10">
         <div className="flex flex-col lg:flex-row lg:space-x-12 items-start">
-          <div className="w-full lg:w-2/5 mb-6 lg:mb-0 overflow-hidden rounded-xl shadow-lg relative">
+          <div className="w-full lg:w-2/5 mb-6 lg:mb-0 overflow-hidden rounded-xl shadow-lg relative image-hover">
             <div className={`transition-opacity duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}>
               <img 
                 src={region.image || fallbackImage}
@@ -64,7 +64,7 @@ const RegionCard: React.FC<RegionCardProps> = ({ region, currentLanguage, onNavi
           <div className="flex-1">
             <h2 
               id={`region-title-${region.id}`} 
-              className={`text-3xl md:text-4xl lg:text-5xl font-bold text-indigo-700 mb-4 ${titleFontFamily} tracking-tight`}
+              className={`japanese-heading text-3xl md:text-4xl lg:text-5xl font-bold text-indigo-700 mb-4 ${titleFontFamily}`}
             >
               {region.name[currentLanguage]}
             </h2>
@@ -77,9 +77,9 @@ const RegionCard: React.FC<RegionCardProps> = ({ region, currentLanguage, onNavi
               onClick={() => setShowPlaces(!showPlaces)}
               className={`inline-flex items-center px-6 py-3 rounded-lg text-white font-medium transition-all duration-200
                 ${showPlaces 
-                  ? 'bg-gray-600 hover:bg-gray-700' 
+                  ? 'bg-pink-600 hover:bg-pink-700' 
                   : 'bg-indigo-600 hover:bg-indigo-700'
-                } ${textFontFamily}`}
+                } ${textFontFamily} transform hover:scale-105`}
               aria-expanded={showPlaces ? 'true' : 'false'}
               aria-controls={placesSectionId}
             >
@@ -91,9 +91,9 @@ const RegionCard: React.FC<RegionCardProps> = ({ region, currentLanguage, onNavi
         {showPlaces && (
           <div 
             id={placesSectionId}
-            className="mt-8 pt-8 border-t border-gray-200 animate-fade-in"
+            className="mt-8 pt-8 border-t border-pink-100 animate-fade-in"
           >
-            <h3 className={`text-2xl font-semibold mb-6 text-gray-800 ${titleFontFamily}`}>
+            <h3 className={`japanese-heading text-2xl font-semibold mb-6 text-gray-800 ${titleFontFamily}`}>
               {placesTitleText[currentLanguage]}
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">

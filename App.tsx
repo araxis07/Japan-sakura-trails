@@ -1,11 +1,11 @@
-
-import React, { useState, useEffect, useCallback, useMemo } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Header from './components/Header';
 import RegionCard from './components/RegionCard';
 import ScrollToTopButton from './components/ScrollToTopButton';
-import PlacePage from './components/PlacePage'; // New component
-import { Language, Region, Place } from './types';
+import PlacePage from './components/PlacePage';
+import { Language } from './types';
 import { REGIONS_DATA } from './constants';
+import { createFloatingPetals, createJapanesePattern } from './utils/japaneseTheme';
 
 // Helper to determine if Asian font should be used
 const useAsianFont = (currentLanguage: Language) => {
@@ -144,25 +144,25 @@ const App: React.FC = () => {
     </svg>
   );
 
+  useEffect(() => {
+    // Initialize Japanese theme elements
+    createJapanesePattern();
+    createFloatingPetals();
+  }, []);
+
   return (
-    <div className={`min-h-screen bg-sakura-bg ${bodyFont} text-sakura-text flex flex-col selection:bg-sakura-deep-pink selection:text-white`}>
+    <div className={`min-h-screen ${bodyFont}`}>
+      {/* Japanese theme background elements are added via JS */}
       <Header 
         currentLanguage={currentLanguage} 
         onLanguageChange={handleLanguageChange}
         onTitleClick={() => navigate('#/')}
       />
-      
-      <main className="flex-grow w-full">
+      <main className="container mx-auto px-4 sm:px-6 lg:px-8 py-8 relative z-10">
         {renderContent()}
       </main>
-
-      <footer className={`py-8 text-center bg-gradient-to-t from-sakura-bg-soft/30 via-white to-white border-t border-sakura-pink/10 mt-auto ${bodyFont} shadow-inner-top`}>
-        <p className="text-sm text-sakura-text-light">
-          &copy; {new Date().getFullYear()} Sakura Trails. All rights reserved.
-        </p>
-         <p className={`text-sm text-sakura-deep-pink mt-2 font-medium ${titleFontFamily} group`}>
-            {footerText[currentLanguage]} <CherryBlossomFooterIcon />
-          </p>
+      <footer className="text-center py-8 text-gray-600">
+        <p className={`${bodyFont} text-sm`}>{footerText[currentLanguage]} ♥</p>
       </footer>
       <ScrollToTopButton />
     </div>
