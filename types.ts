@@ -35,4 +35,10 @@ export interface Region {
   description: LocalizedText;
   image: string;
   places: Place[];
+  history?: LocalizedText;
+  regional_culture?: LocalizedText;
+  natural_features?: LocalizedText;
+  climate?: LocalizedText;
+  local_cuisine?: LocalizedText;
+  accessibility?: LocalizedText;
 }
