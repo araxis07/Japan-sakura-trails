@@ -22,6 +22,11 @@ export interface Place {
   galleryImages?: string[]; 
   // Optional: For future use, like coordinates for a map
   coordinates?: { lat: number; lng: number };
+  history?: LocalizedText;
+  culture_festivals?: LocalizedText;
+  things_to_do?: LocalizedText;
+  local_cuisine?: LocalizedText;
+  access?: LocalizedText;
 }
 
 export interface Region {

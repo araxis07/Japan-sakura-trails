@@ -1,4 +1,3 @@
-
 import { Region, Language } from './types';
 
 export const REGIONS_DATA: Region[] = [
@@ -31,6 +30,36 @@ export const REGIONS_DATA: Region[] = [
           [Language.EN]: 'The economic and cultural center of Hokkaido. Famous for the Sapporo Snow Festival, delicious ramen, and beer gardens.',
           [Language.TH]: 'ศูนย์กลางเศรษฐกิจและวัฒนธรรมของฮอกไกโด มีชื่อเสียงด้านเทศกาลหิมะซัปโปโร ราเม็งอร่อย และสวนเบียร์',
           [Language.ZH]: '北海道的经济和文化中心。以札幌雪祭、美味的拉面和啤酒园而闻名。',
+        },
+        history: {
+            [Language.JA]: '札幌の歴史は、1869年に開拓使が置かれたことから始まります。都市計画はアメリカの専門家を招いて行われ、碁盤の目のような美しい街並みが形成されました。',
+            [Language.EN]: 'The history of Sapporo began in 1869 with the establishment of the Development Commission. The city was planned with the help of American experts, resulting in a beautiful grid-like street layout.',
+            [Language.TH]: 'ประวัติศาสตร์ของซัปโปโรเริ่มต้นในปี 1869 ด้วยการจัดตั้งคณะกรรมการพัฒนาเมือง เมืองนี้ได้รับการวางผังโดยผู้เชี่ยวชาญชาวอเมริกัน ทำให้มีผังเมืองที่เป็นระเบียบสวยงามเหมือนตารางหมากรุก',
+            [Language.ZH]: '札幌的历史始于1869年开拓使的设立。城市规划是在美国专家的帮助下进行的，形成了美丽的棋盘式街道格局。',
+        },
+        culture_festivals: {
+            [Language.JA]: '最も有名なのは「さっぽろ雪まつり」で、世界中から観光客が訪れます。夏には「YOSAKOIソーラン祭り」も開催され、街は活気に満ち溢れます。',
+            [Language.EN]: 'The most famous event is the Sapporo Snow Festival, which attracts tourists from all over the world. In summer, the YOSAKOI Soran Festival fills the city with energy.',
+            [Language.TH]: 'เทศกาลที่มีชื่อเสียงที่สุดคือ "เทศกาลหิมะซัปโปโร" ซึ่งดึงดูดนักท่องเที่ยวจากทั่วโลก ในฤดูร้อนยังมี "เทศกาลโยซาโคอิโซรัน" ที่ทำให้เมืองเต็มไปด้วยความมีชีวิตชีวา',
+            [Language.ZH]: '最著名的是“札幌雪祭”，吸引了来自世界各地的游客。夏天举办的“YOSAKOI索朗节”也让城市充满活力。',
+        },
+        things_to_do: {
+            [Language.JA]: '大通公園での散策、時計台や旧北海道庁赤れんが庁舎の見学、すすきのの夜景を楽しむなど、見どころがたくさんあります。',
+            [Language.EN]: 'There is much to see, including strolling in Odori Park, visiting the Clock Tower and the Former Hokkaido Government Office Building (Red Brick Office), and enjoying the nightlife of Susukino.',
+            [Language.TH]: 'มีกิจกรรมน่าสนใจมากมาย เช่น การเดินเล่นในสวนโอโดริ การเยี่ยมชมหอนาฬิกาและอาคารที่ทำการรัฐบาลเก่าฮอกไกโด (อาคารอิฐแดง) และการเพลิดเพลินกับสถานบันเทิงยามค่ำคืนของย่านซูซูกิโนะ',
+            [Language.ZH]: '有很多值得一看的地方，包括在大通公园散步、参观钟楼和北海道旧本厅舍（红砖厅舍），以及享受薄野的夜生活。',
+        },
+        local_cuisine: {
+            [Language.JA]: '味噌ラーメン、スープカレー、ジンギスカンは必食です。新鮮な海の幸も豊富で、寿司や海鮮丼も絶品です。',
+            [Language.EN]: 'Miso ramen, soup curry, and Genghis Khan (grilled mutton) are must-tries. Fresh seafood is also abundant, with excellent sushi and seafood bowls.',
+            [Language.TH]: 'มิโซะราเม็ง ซุปแกงกะหรี่ และเจงกิสข่าน (เนื้อแกะย่าง) เป็นเมนูที่ต้องลอง นอกจากนี้ยังมีอาหารทะเลสดใหม่มากมาย ทั้งซูชิและข้าวหน้าทะเลที่อร่อยเป็นเลิศ',
+            [Language.ZH]: '味噌拉面、汤咖喱和成吉思汗烤肉是必尝的美食。新鲜的海鲜也很丰富，寿司和海鲜盖饭非常美味。',
+        },
+        access: {
+            [Language.JA]: '新千歳空港からJR快速エアポートで約40分。市内は地下鉄やバスが発達しており、移動は非常に便利です。',
+            [Language.EN]: 'About 40 minutes from New Chitose Airport by JR Rapid Airport train. The city has a well-developed subway and bus system, making it very convenient to get around.',
+            [Language.TH]: 'จากสนามบินชิโตเสะใหม่โดยรถไฟ JR Rapid Airport ใช้เวลาประมาณ 40 นาที การเดินทางภายในเมืองสะดวกสบายด้วยรถไฟใต้ดินและรถประจำทางที่ครอบคลุม',
+            [Language.ZH]: '从新千岁机场乘坐JR快速机场线约40分钟。市内地铁和巴士系统发达，交通非常便利。',
         },
         image: 'https://picsum.photos/seed/sapporo-city/600/300',
       },

@@ -82,7 +82,41 @@ const PlacePage: React.FC<PlacePageProps> = ({ place, region, currentLanguage, o
                         prose-strong:text-sakura-text prose-strong:font-semibold`}
           >
             <p>{place.description[currentLanguage]}</p>
-            {/* More detailed content can be added here in a structured way */}
+
+            {place.history && (
+                <>
+                    <h2 className={`mt-8 mb-4 text-2xl font-bold text-sakura-deep-pink ${titleFontFamily}`}>History</h2>
+                    <p>{place.history[currentLanguage]}</p>
+                </>
+            )}
+
+            {place.culture_festivals && (
+                <>
+                    <h2 className={`mt-8 mb-4 text-2xl font-bold text-sakura-deep-pink ${titleFontFamily}`}>Culture & Festivals</h2>
+                    <p>{place.culture_festivals[currentLanguage]}</p>
+                </>
+            )}
+
+            {place.things_to_do && (
+                <>
+                    <h2 className={`mt-8 mb-4 text-2xl font-bold text-sakura-deep-pink ${titleFontFamily}`}>Things to Do</h2>
+                    <p>{place.things_to_do[currentLanguage]}</p>
+                </>
+            )}
+
+            {place.local_cuisine && (
+                <>
+                    <h2 className={`mt-8 mb-4 text-2xl font-bold text-sakura-deep-pink ${titleFontFamily}`}>Local Cuisine</h2>
+                    <p>{place.local_cuisine[currentLanguage]}</p>
+                </>
+            )}
+
+            {place.access && (
+                <>
+                    <h2 className={`mt-8 mb-4 text-2xl font-bold text-sakura-deep-pink ${titleFontFamily}`}>Access</h2>
+                    <p>{place.access[currentLanguage]}</p>
+                </>
+            )}
           </div>
         </article>
       </div>
