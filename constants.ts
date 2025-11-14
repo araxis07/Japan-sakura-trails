@@ -348,22 +348,6 @@ export const REGIONS_DATA: Region[] = [
         image: 'https://picsum.photos/seed/matsushima/600/300',
       },
       {
-        id: 'sendai',
-        name: { 
-          [Language.JA]: '仙台市', 
-          [Language.EN]: 'Sendai City',
-          [Language.TH]: 'เมืองเซ็นได',
-          [Language.ZH]: '仙台市',
-        },
-        description: {
-          [Language.JA]: '宮城県の県庁所在地で、「杜の都」として知られています。伊達政宗ゆかりの地であり、七夕まつりが有名です。',
-          [Language.EN]: 'The capital of Miyagi Prefecture, known as the "City of Trees." It has historical ties to Date Masamune and is famous for its Tanabata Festival.',
-          [Language.TH]: 'เมืองหลวงของจังหวัดมิยางิ รู้จักกันในชื่อ "เมืองแห่งต้นไม้" มีความผูกพันทางประวัติศาสตร์กับดาเตะ มาซามุเนะ และมีชื่อเสียงด้านเทศกาลทานาบาตะ',
-          [Language.ZH]: '宫城县首府，被誉为“森林之都”。与伊达政宗有历史渊源，并以七夕节闻名。',
-        },
-        image: 'https://picsum.photos/seed/sendai-city/600/300',
-      },
-      {
         id: 'aomori',
         name: { 
           [Language.JA]: '青森市', 
@@ -4597,7 +4581,37 @@ export const REGIONS_DATA: Region[] = [
           [Language.JA]: '愛知県の県庁所在地で、日本三大都市の一つ。名古屋城や熱田神宮、独自の「名古屋めし」が有名です。',
           [Language.EN]: 'The capital of Aichi Prefecture and one of Japan\'s three largest cities. Famous for Nagoya Castle, Atsuta Shrine, and unique "Nagoya-meshi" cuisine.',
           [Language.TH]: 'เมืองหลวงของจังหวัดไอจิและหนึ่งในสามเมืองที่ใหญ่ที่สุดของญี่ปุ่น มีชื่อเสียงด้านปราสาทนาโกย่า ศาลเจ้าอัตสึตะ และอาหาร "นาโกย่าเมชิ" ที่เป็นเอกลักษณ์',
-          [Language.ZH]: '爱知县首府，日本三大城市之一。以名古屋城、热田神宫和独特的“名古屋饭”而闻名。',
+          [Language.ZH]: '爱知县首府，日本三大城市之一。以名古屋城、热田神宫和独特的"名古屋饭"而闻名。',
+        },
+        history: {
+          [Language.JA]: '戦国時代から城下町として発展。織田信長、豊臣秀吉、徳川家康の三英僑を輩出した地です。明治以降は繊維産業を中心に発展し、現在は自動車産業の中心地として知られています。',
+          [Language.EN]: 'Developed as a castle town since the Warring States period. This is the birthplace of the three great unifiers: Oda Nobunaga, Toyotomi Hideyoshi, and Tokugawa Ieyasu. Since the Meiji period, it developed centered around the textile industry and is now known as the center of the automobile industry.',
+          [Language.TH]: 'พัฒนาเป็นเมืองปราสาทตั้งแต่ยุคสังคราม เป็นบ้านเกิดของผู้รวมประเทศสามยอด: โอดะ โนบุนากะ โทโยโตมิ ฮิเดโยชิ และโทคุงาวะ อิเอยาสุ ตั้งแต่สมัยเมจิ พัฒนาโดยมีศูนย์กลางอุตสาหกรรมหลักผ้าและปัจจุบันรู้จักในฐานะศูนย์กลางอุตสาหกรรมยานยนต์',
+          [Language.ZH]: '从战国时代作为城下町发展。这里是三位大统一者的诞生地:织田信长、丰臣秀吉和德川家康。明治以后以纺织业为中心发展，现在以汽车业中心而闻名。',
+        },
+        culture_festivals: {
+          [Language.JA]: '名古屋まつり、熱田神宮例祭、名古屋城春祭、大須観音・七寺巡りなどが開催されます。',
+          [Language.EN]: 'Events include Nagoya Festival, Atsuta Shrine Festival, Nagoya Castle Spring Festival, and the Seven Temple Pilgrimage.',
+          [Language.TH]: 'มีงานต่างๆ รวมถึงเทศกาลนาโกย่า เทศกาลศาลเจ้าอัตสุตะ เทศกาลฤดูใบไม้ผลิปราสาทนาโกย่า และการแสวงบุญเจ็ดวัด',
+          [Language.ZH]: '举办名古屋祭、热田神宫例祭、名古屋城春祭、大須观音七寺巡礼等活动。',
+        },
+        things_to_do: {
+          [Language.JA]: '名古屋城の天守閣登り、熱田神宮参拝、大須観音巡り、名古屋港水族館、トヨタ産業技術記念館、大須電器街でのショッピングがおすすめです。',
+          [Language.EN]: 'Recommended activities include climbing Nagoya Castle tower, visiting Atsuta Shrine, temple hopping in Osu, Nagoya Port Aquarium, Toyota Commemorative Museum of Industry and Technology, and shopping in Osu shopping district.',
+          [Language.TH]: 'กิจกรรมที่แนะนำ ได้แก่ ขึ้นหอคอยปราสาทนาโกย่า ไปสักการะศาลเจ้าอัตสุตะ เที่ยวชมวัดในโอซุ พิพิธภัณฑ์สัตว์น้ำท่าเรือนาโกย่า พิพิธภัณฑ์ระลึกอุตสาหกรรมโตโยต้า และช้อปปิ้งที่ย่านโอซุ',
+          [Language.ZH]: '推荐活动包括登上名古屋城天守阁、参拜热田神宫、大须寺庙巡礼、名古屋港水族馆、丰田产业技术纪念馆、在大须电器街购物。',
+        },
+        local_cuisine: {
+          [Language.JA]: '手羽先、ひつまぶし、味噌カツ、あんかけスパゲッティ、きしめん、台湾ラーメン、小倉トーストなど「名古屋めし」が豊富です。',
+          [Language.EN]: 'Famous "Nagoya-meshi" includes tebasaki (chicken wings), hitsumabushi (grilled eel), miso katsu, ankake spaghetti, kishimen noodles, Taiwan ramen, and Ogura toast.',
+          [Language.TH]: '"นาโกย่าเมชิ" ที่มีชื่อเสียง ได้แก่ เทบาซากิ (ปีกไก่) ฮิตสุมาบุชิ (ปลาไหลย่าง) มิโซะคัตซุ สปาเก็ตตีราดซอส คิชิเมน ราเม็งไต้หวัน และขนมปังโอกุระ',
+          [Language.ZH]: '著名的"名古屋饭"包括手羽先(鸡翅)、鳗鱼饭、味噌炸猪排、勾芡意大利面、棋子面、台湾拉面、小倉烤面包等。',
+        },
+        access: {
+          [Language.JA]: '東京から新幹線で約1時40分。市内は地下鉄、バス、名鉄、近鉄が発達しています。',
+          [Language.EN]: 'About 1 hour 40 minutes from Tokyo by Shinkansen. The city has well-developed subway, bus, Meitetsu, and Kintetsu railway networks.',
+          [Language.TH]: 'ประมาณ 1 ชั่วโมง 40 นาทีจากโตเกียวโดยชินคันเซ็น เมืองมีเครือข่ายรถไฟใต้ดิน รถประจำทาง และรถไฟ Meitetsu และ Kintetsu ที่พัฒนาดี',
+          [Language.ZH]: '从东京乘新干线约1小时40分钟。市内地铁、公交、名铁、近铁系统发达。',
         },
         image: 'https://picsum.photos/seed/nagoya-city/600/300',
       },
