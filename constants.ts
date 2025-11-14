@@ -1,3 +1,4 @@
+// constants.ts test
 import { Region, Language } from './types';
 
 export const REGIONS_DATA: Region[] = [
