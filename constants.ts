@@ -1,7 +1,24 @@
 // constants.ts test part 3
-import { Region, Language } from './types';
+import { Region, Language, Place } from './types';
 
-export const REGIONS_DATA: Region[] = [
+type RegionSupplement = Pick<
+  Region,
+  'history' | 'regional_culture' | 'natural_features' | 'climate' | 'local_cuisine' | 'accessibility'
+>;
+
+type PlaceSupplement = Pick<
+  Place,
+  'history' | 'culture_festivals' | 'things_to_do' | 'local_cuisine' | 'access'
+>;
+
+const createLocalizedText = (ja: string, en: string, th: string, zh: string) => ({
+  [Language.JA]: ja,
+  [Language.EN]: en,
+  [Language.TH]: th,
+  [Language.ZH]: zh,
+});
+
+const BASE_REGIONS_DATA: Region[] = [
   {
     id: 'hokkaido',
     name: {
@@ -4585,7 +4602,7 @@ export const REGIONS_DATA: Region[] = [
           [Language.ZH]: '爱知县首府，日本三大城市之一。以名古屋城、热田神宫和独特的"名古屋饭"而闻名。',
         },
         history: {
-          [Language.JA]: '戦国時代から城下町として発展。織田信長、豊臣秀吉、徳川家康の三英僑を輩出した地です。明治以降は繊維産業を中心に発展し、現在は自動車産業の中心地として知られています。',
+          [Language.JA]: '戦国時代から城下町として発展。織田信長、豊臣秀吉、徳川家康の三英傑を輩出した地です。明治以降は繊維産業を中心に発展し、現在は自動車産業の中心地として知られています。',
           [Language.EN]: 'Developed as a castle town since the Warring States period. This is the birthplace of the three great unifiers: Oda Nobunaga, Toyotomi Hideyoshi, and Tokugawa Ieyasu. Since the Meiji period, it developed centered around the textile industry and is now known as the center of the automobile industry.',
           [Language.TH]: 'พัฒนาเป็นเมืองปราสาทตั้งแต่ยุคสังคราม เป็นบ้านเกิดของผู้รวมประเทศสามยอด: โอดะ โนบุนากะ โทโยโตมิ ฮิเดโยชิ และโทคุงาวะ อิเอยาสุ ตั้งแต่สมัยเมจิ พัฒนาโดยมีศูนย์กลางอุตสาหกรรมหลักผ้าและปัจจุบันรู้จักในฐานะศูนย์กลางอุตสาหกรรมยานยนต์',
           [Language.ZH]: '从战国时代作为城下町发展。这里是三位大统一者的诞生地:织田信长、丰臣秀吉和德川家康。明治以后以纺织业为中心发展，现在以汽车业中心而闻名。',
@@ -4922,7 +4939,7 @@ export const REGIONS_DATA: Region[] = [
           [Language.JA]: '長い石段を登った先にある海の神様を祀る神社。多くの参拝者で賑わいます。',
           [Language.EN]: 'A shrine dedicated to the god of the sea, reached by climbing a long stone staircase. Attracts many worshippers.',
           [Language.TH]: 'ศาลเจ้าที่อุทิศให้กับเทพเจ้าแห่งท้องทะเล ซึ่งต้องปีนบันไดหินยาวเพื่อไปถึง ดึงดูดผู้มาสักการะจำนวนมาก',
-          [Language.ZH]: '供奉海神的 आणि社，需攀登长长的石阶才能到达。吸引了许多朝拜者。',
+          [Language.ZH]: '供奉海神的神社，需攀登长长的石阶才能到达。吸引了许多朝拜者。',
         },
         image: 'https://picsum.photos/seed/kotohira-gu/600/300',
       },
@@ -5093,3 +5110,1102 @@ export const REGIONS_DATA: Region[] = [
     ],
   },
 ];
+
+const REGION_SUPPLEMENTS: Record<string, RegionSupplement> = {
+  hokkaido: {
+    history: createLocalizedText(
+      'アイヌ文化が根付く大地で、近代以降は開拓使の設置によって本格的な都市開発が進みました。港町や炭鉱町の歴史も地域ごとの個性を形作っています。',
+      'A land shaped by Ainu culture, Hokkaido later underwent large-scale development after the Meiji government established the Development Commission. Port towns and mining communities also gave each area a distinct identity.',
+      'เป็นดินแดนที่มีรากฐานจากวัฒนธรรมไอนุ และต่อมาได้รับการพัฒนาอย่างจริงจังหลังรัฐบาลเมจิจัดตั้งหน่วยบุกเบิกฮอกไกโด ประวัติของเมืองท่าและเมืองเหมืองก็สร้างเอกลักษณ์ให้แต่ละพื้นที่เช่นกัน',
+      '这片土地深受阿伊努文化影响，明治时期设立开拓使后开始大规模开发。港口城市与矿业城镇的历史也塑造了各地不同的个性。'
+    ),
+    regional_culture: createLocalizedText(
+      'アイヌの工芸や食文化に加え、札幌雪まつりに代表される冬のイベント、酪農文化、雄大な自然を楽しむアウトドア志向が地域文化を彩ります。',
+      'Ainu crafts and food traditions, major winter events such as the Sapporo Snow Festival, dairy culture, and a strong outdoor lifestyle all define local culture.',
+      'งานหัตถกรรมและอาหารของชาวไอนุ เทศกาลฤดูหนาวอย่างเทศกาลหิมะซัปโปโร วัฒนธรรมการทำปศุสัตว์นม และวิถีกลางแจ้ง ล้วนเป็นส่วนสำคัญของวัฒนธรรมท้องถิ่น',
+      '阿伊努工艺与饮食文化、札幌雪祭等冬季活动、酪农文化以及浓厚的户外生活方式，共同构成了当地文化。'
+    ),
+    natural_features: createLocalizedText(
+      '知床や大雪山国立公園、富良野の花畑、釧路湿原など、手つかずの自然が各地に広がります。流氷や火山地形などダイナミックな景観も魅力です。',
+      'Unspoiled nature stretches across the region, from Shiretoko and Daisetsuzan National Park to Furano flower fields and Kushiro Marsh. Drift ice and volcanic terrain add dramatic scenery.',
+      'มีธรรมชาติอันสมบูรณ์กระจายอยู่ทั่วภูมิภาค ตั้งแต่ชิเระโทโกะ อุทยานแห่งชาติไดเซ็ตสึซัง ทุ่งดอกไม้ฟุราโนะ ไปจนถึงพื้นที่ชุ่มน้ำคุชิโระ รวมถึงทิวทัศน์น้ำแข็งลอยและภูมิประเทศภูเขาไฟที่โดดเด่น',
+      '这里遍布原始自然景观，包括知床、大雪山国立公园、富良野花田和钏路湿原，流冰与火山地形也带来极具震撼力的风景。'
+    ),
+    climate: createLocalizedText(
+      '夏は涼しく過ごしやすい一方、冬は厳しい寒さと豪雪に見舞われます。四季の変化がはっきりしており、花、紅葉、雪景色それぞれに見どころがあります。',
+      'Summers are cool and comfortable, while winters are cold with heavy snowfall. The seasons are clearly defined, offering flowers, autumn foliage, and snowy landscapes in turn.',
+      'ฤดูร้อนเย็นสบาย ส่วนฤดูหนาวหนาวจัดและมีหิมะตกหนัก ฤดูกาลทั้งสี่ชัดเจน ทำให้มีเสน่ห์ทั้งดอกไม้ ใบไม้เปลี่ยนสี และหิมะ',
+      '夏季凉爽舒适，冬季寒冷且降雪量大。四季分明，花海、红叶和雪景各有魅力。'
+    ),
+    local_cuisine: createLocalizedText(
+      'カニ、ウニ、いくらなどの海産物に加え、味噌ラーメン、スープカレー、ジンギスカン、乳製品やスイーツも人気です。',
+      'Seafood such as crab, sea urchin, and salmon roe is famous, along with miso ramen, soup curry, Genghis Khan barbecue, dairy products, and sweets.',
+      'มีชื่อเสียงทั้งอาหารทะเลอย่างปู อูนิ และไข่ปลาแซลมอน รวมถึงมิโซะราเม็ง ซุปแกงกะหรี่ เจงกิสข่าน ผลิตภัณฑ์นม และขนมหวาน',
+      '螃蟹、海胆、鲑鱼子等海鲜非常有名，味噌拉面、汤咖喱、成吉思汗烤肉、乳制品和甜点也很受欢迎。'
+    ),
+    accessibility: createLocalizedText(
+      '新千歳空港を中心に道内各地へ空路が充実しており、新函館北斗駅までは北海道新幹線も利用できます。都市間移動はJR特急やレンタカーが便利です。',
+      'Air access is extensive through New Chitose Airport and other regional airports, and the Hokkaido Shinkansen reaches Shin-Hakodate-Hokuto. JR limited express trains and rental cars are useful for travel between cities.',
+      'มีเที่ยวบินเชื่อมต่อหลายพื้นที่ผ่านสนามบินชิโตเสะแห่งใหม่และสนามบินภูมิภาคต่าง ๆ อีกทั้งยังใช้ฮอกไกโดชินคันเซ็นถึงชินฮาโกดาเตะโฮคุโตได้ การเดินทางระหว่างเมืองสะดวกด้วยรถไฟด่วนพิเศษ JR และรถเช่า',
+      '以新千岁机场为核心，北海道各地航空网络完善，也可搭乘北海道新干线到新函馆北斗。城市之间适合乘坐JR特急或租车移动。'
+    ),
+  },
+  kanto: {
+    history: createLocalizedText(
+      '江戸幕府の本拠地として発展した地域で、明治以降は東京を中心に日本の政治・経済の中心となりました。港町、宿場町、城下町の歴史も各地に残ります。',
+      'The region grew as the base of the Tokugawa shogunate and, after the Meiji era, became the political and economic center of Japan around Tokyo. Port towns, post towns, and castle towns still preserve their histories.',
+      'ภูมิภาคนี้เติบโตขึ้นในฐานะศูนย์กลางของรัฐบาลโชกุนโทกุงาวะ และหลังยุคเมจิก็กลายเป็นศูนย์กลางการเมืองและเศรษฐกิจของญี่ปุ่นรอบกรุงโตเกียว เมืองท่า เมืองพักระหว่างทาง และเมืองปราสาทหลายแห่งยังคงเก็บร่องรอยประวัติศาสตร์ไว้',
+      '关东地区曾是德川幕府的核心，明治以后又以东京为中心成为日本的政治与经济中枢。各地仍保留着港口城镇、宿场町和城下町的历史痕迹。'
+    ),
+    regional_culture: createLocalizedText(
+      '最先端のポップカルチャーと、下町の祭礼や職人文化が共存するのが特徴です。アニメ、ファッション、相撲、老舗の食文化まで幅広い魅力があります。',
+      'Its character comes from the coexistence of cutting-edge pop culture and traditional downtown festivals and craftsmanship. Anime, fashion, sumo, and long-established food culture all thrive here.',
+      'จุดเด่นของภูมิภาคนี้คือการอยู่ร่วมกันของป๊อปคัลเจอร์ล้ำสมัยกับเทศกาลชุมชนเก่าและวัฒนธรรมช่างฝีมือ มีเสน่ห์ตั้งแต่อะนิเมะ แฟชั่น ซูโม่ ไปจนถึงอาหารร้านเก่าแก่',
+      '这里最大的特色是前沿流行文化与下町祭典、匠人文化并存。从动漫、时尚、相扑到老字号美食，魅力十分多元。'
+    ),
+    natural_features: createLocalizedText(
+      '大都市圏の印象が強い一方で、日光の山々、箱根の温泉、湘南や房総の海岸線など自然の表情も豊かです。',
+      'Although known for its giant metropolitan area, Kanto also offers rich natural scenery such as the mountains of Nikko, the hot springs of Hakone, and the coastlines of Shonan and Boso.',
+      'แม้จะเป็นที่รู้จักในฐานะเขตมหานครขนาดใหญ่ แต่คันโตยังมีธรรมชาติที่หลากหลาย เช่น ภูเขาของนิกโกะ ออนเซ็นของฮาโกเนะ และแนวชายฝั่งโชนันกับโบโซ',
+      '尽管以大都市圈著称，关东也拥有丰富自然景观，如日光山地、箱根温泉以及湘南和房总半岛的海岸线。'
+    ),
+    climate: createLocalizedText(
+      '夏は高温多湿、冬は晴天の日が多く比較的乾燥します。平野部は雪が少ないものの、山間部では四季の景色の変化が楽しめます。',
+      'Summers are hot and humid, while winters are relatively dry with many clear days. Snow is uncommon on the plains, but mountain areas show strong seasonal change.',
+      'ฤดูร้อนร้อนและชื้น ส่วนฤดูหนาวค่อนข้างแห้งและมีวันที่ฟ้าโปร่งมาก พื้นที่ราบมีหิมะไม่มาก แต่เขตภูเขาจะเห็นความเปลี่ยนแปลงของฤดูกาลได้ชัด',
+      '夏季炎热潮湿，冬季相对干燥且晴天较多。平原地区少雪，但山区四季变化十分明显。'
+    ),
+    local_cuisine: createLocalizedText(
+      '江戸前寿司、もんじゃ焼き、深川めし、宇都宮餃子、横浜中華街の料理など、都市ごとに個性的な味が揃います。',
+      'Local favorites include Edomae sushi, monjayaki, Fukagawa-meshi, Utsunomiya gyoza, and the diverse food culture of Yokohama Chinatown.',
+      'อาหารเด่นได้แก่ ซูชิแบบเอโดะ มนจะยากิ ฟุคางาวะเมชิ เกี๊ยวซ่าอุสึโนะมิยะ และอาหารหลากหลายในไชน่าทาวน์โยโกฮามะ',
+      '代表美食包括江户前寿司、文字烧、深川饭、宇都宫饺子，以及横滨中华街的多样料理。'
+    ),
+    accessibility: createLocalizedText(
+      '成田・羽田の両空港に加え、新幹線、私鉄、地下鉄、バス網が極めて発達しています。日本国内の周遊拠点として非常に便利です。',
+      'With both Narita and Haneda airports plus dense networks of Shinkansen, private railways, subways, and buses, Kanto is one of the easiest bases for travel around Japan.',
+      'มีทั้งสนามบินนาริตะและฮาเนดะ รวมถึงเครือข่ายชินคันเซ็น รถไฟเอกชน รถไฟใต้ดิน และรถบัสที่พัฒนาอย่างมาก จึงเป็นฐานเดินทางในญี่ปุ่นที่สะดวกมาก',
+      '关东拥有成田与羽田两大机场，以及极其发达的新干线、私铁、地铁和巴士网络，是游览日本时非常便利的枢纽。'
+    ),
+  },
+  chubu: {
+    history: createLocalizedText(
+      '東西日本を結ぶ交通の要衝として発展し、中山道や東海道の宿場町、北陸の城下町、山間部の農村が独自の歴史を育みました。',
+      'Chubu developed as a crossroads between eastern and western Japan, with post towns on the Nakasendo and Tokaido routes, castle towns in Hokuriku, and mountain villages each building their own histories.',
+      'จูบุเติบโตขึ้นในฐานะจุดเชื่อมสำคัญระหว่างญี่ปุ่นตะวันออกและตะวันตก โดยมีทั้งเมืองพักริมเส้นทางนากาเซ็นโดและโทไคโด เมืองปราสาทในโฮคุริคุ และหมู่บ้านภูเขาที่มีประวัติศาสตร์เฉพาะตัว',
+      '中部地区作为连接日本东西的重要交通枢纽而发展，中山道与东海道的宿场町、北陆的城下町以及山间村落都孕育出各自独特的历史。'
+    ),
+    regional_culture: createLocalizedText(
+      '山岳信仰、祭屋台、漆器や和紙などの工芸、酒蔵文化が色濃く残ります。地域ごとの差が大きく、多様性に富んだ文化圏です。',
+      'Mountain worship, ornate festival floats, crafts such as lacquerware and washi, and sake brewing traditions remain strong. The cultural character varies widely from one area to another.',
+      'ยังคงมีร่องรอยชัดเจนของความเชื่อเกี่ยวกับภูเขา รถแห่เทศกาล งานฝีมืออย่างเครื่องเขินและกระดาษวาชิ รวมถึงวัฒนธรรมโรงหมักสาเก แต่ละพื้นที่มีบุคลิกต่างกันมากจึงเป็นภูมิภาคที่หลากหลายทางวัฒนธรรม',
+      '这里保留着浓厚的山岳信仰、祭典花车、漆器和和纸等工艺，以及酒藏文化，各地差异明显，是一个文化多样性很高的地区。'
+    ),
+    natural_features: createLocalizedText(
+      '富士山、日本アルプス、白川郷の雪景色、能登や伊豆の海岸線など、山と海の雄大な風景に恵まれています。',
+      'The region is blessed with grand scenery shaped by both mountains and sea, including Mount Fuji, the Japanese Alps, snowy Shirakawa-go, and the coastlines of Noto and Izu.',
+      'ภูมิภาคนี้อุดมด้วยทิวทัศน์ยิ่งใหญ่ทั้งภูเขาและทะเล เช่น ภูเขาไฟฟูจิ เทือกเขาแอลป์ญี่ปุ่น ทัศนียภาพหิมะของชิราคาวาโกะ และแนวชายฝั่งโนโตะกับอิซุ',
+      '这里兼具山海壮丽景观，包括富士山、日本阿尔卑斯山、白川乡雪景以及能登和伊豆海岸线。'
+    ),
+    climate: createLocalizedText(
+      '太平洋側の温暖な地域から、日本海側の豪雪地帯、高原の冷涼な気候まで差が大きいのが特徴です。',
+      'One hallmark of Chubu is its broad climatic range, from the mild Pacific side to the snowy Sea of Japan side and the cool conditions of highland areas.',
+      'จุดเด่นของจูบุคือสภาพอากาศที่แตกต่างกันมาก ตั้งแต่เขตอบอุ่นฝั่งแปซิฟิก เขตหิมะหนักฝั่งทะเลญี่ปุ่น ไปจนถึงอากาศเย็นของพื้นที่สูง',
+      '中部的气候差异很大，从太平洋一侧的温暖地区，到日本海一侧的豪雪地带，再到高原地区的凉爽气候都有。'
+    ),
+    local_cuisine: createLocalizedText(
+      '飛騨牛、ほうとう、越前がに、味噌文化を生かした料理、地酒など、土地ごとの名物が充実しています。',
+      'Regional specialties include Hida beef, hoto noodles, Echizen crab, dishes built around rich miso traditions, and excellent local sake.',
+      'อาหารขึ้นชื่อมีทั้งเนื้อฮิดะ โฮโตะ ปูเอจิเซ็น เมนูที่ใช้มิโซะอย่างเข้มข้น และสาเกท้องถิ่นคุณภาพดี',
+      '代表美食有飞驒牛、馎饦面、越前蟹、浓厚味噌料理以及优质地酒。'
+    ),
+    accessibility: createLocalizedText(
+      '東海道・北陸新幹線に加え、高速道路網や特急列車が発達しています。中部国際空港や小松空港など空路も利用しやすい地域です。',
+      'The area is well served by the Tokaido and Hokuriku Shinkansen, express trains, and expressways. Air access through Chubu Centrair and regional airports is also convenient.',
+      'มีทั้งโทไคโดและโฮคุริคุชินคันเซ็น เครือข่ายทางด่วน และรถไฟด่วนที่ครอบคลุม อีกทั้งยังใช้สนามบินชูบุเซ็นแทรร์และสนามบินภูมิภาคอื่น ๆ ได้สะดวก',
+      '中部地区有东海道、北陆新干线，以及完善的高速公路和特急列车网络，通过中部国际机场和地方机场出行也很方便。'
+    ),
+  },
+  kansai: {
+    history: createLocalizedText(
+      '長く日本の政治・宗教・文化の中心を担ってきた地域で、京都や奈良には古代から中世にかけての都の記憶が色濃く残ります。',
+      'Kansai long served as a political, religious, and cultural heart of Japan, and cities such as Kyoto and Nara still carry the memory of ancient and medieval capitals.',
+      'คันไซเคยเป็นศูนย์กลางการเมือง ศาสนา และวัฒนธรรมของญี่ปุ่นมาอย่างยาวนาน เมืองอย่างเกียวโตและนารายังคงสะท้อนความทรงจำของอดีตราชธานีอย่างชัดเจน',
+      '关西长期扮演着日本政治、宗教与文化核心的角色，京都和奈良等城市至今仍保留着古代与中世纪都城的浓厚记忆。'
+    ),
+    regional_culture: createLocalizedText(
+      '茶道、能、文楽、祇園祭などの伝統文化に加え、商人文化や笑いの文化も根強く、格式と親しみやすさが共存しています。',
+      'Tea ceremony, Noh, Bunraku, and famous festivals such as Gion Matsuri coexist with merchant culture and a strong tradition of humor, giving Kansai both elegance and warmth.',
+      'ทั้งพิธีชงชา โนห์ บุนราคุ และเทศกาลดังอย่างกิองมัตสึริ อยู่ร่วมกับวัฒนธรรมพ่อค้าและอารมณ์ขันแบบคันไซ ทำให้ภูมิภาคนี้มีทั้งความงดงามและความเป็นกันเอง',
+      '茶道、能乐、文乐、祇园祭等传统文化，与商人文化及浓厚的幽默感并存，使关西兼具典雅与亲切。'
+    ),
+    natural_features: createLocalizedText(
+      '琵琶湖、紀伊山地、瀬戸内の海辺などがあり、歴史都市の近くに豊かな自然が広がっています。',
+      'Lake Biwa, the Kii Mountains, and Seto Inland Sea coastlines show that rich nature lies close to the historic cities of Kansai.',
+      'มีทั้งทะเลสาบบิวะ เทือกเขาคิอิ และชายฝั่งทะเลเซโตะใน ทำให้เห็นว่าธรรมชาติอุดมสมบูรณ์อยู่ใกล้เมืองประวัติศาสตร์ของคันไซมาก',
+      '这里拥有琵琶湖、纪伊山地和濑户内海沿岸，丰富自然与历史城市之间距离很近。'
+    ),
+    climate: createLocalizedText(
+      '平野部は夏の蒸し暑さが強く、冬は比較的穏やかです。山間部や日本海側では積雪も見られます。',
+      'Lowland areas are hot and humid in summer and relatively mild in winter, while mountain districts and the Sea of Japan side can see snow.',
+      'พื้นที่ราบจะร้อนชื้นมากในฤดูร้อน และฤดูหนาวค่อนข้างไม่รุนแรง ส่วนเขตภูเขาและฝั่งทะเลญี่ปุ่นอาจมีหิมะตก',
+      '平原地区夏季闷热，冬季相对温和，山区和日本海一侧则可能降雪。'
+    ),
+    local_cuisine: createLocalizedText(
+      '京料理、湯豆腐、たこ焼き、お好み焼き、串カツ、神戸牛など、上品さと庶民的な味が共に楽しめます。',
+      'Kyoto cuisine, yudofu, takoyaki, okonomiyaki, kushikatsu, and Kobe beef show how refined food and everyday comfort food coexist here.',
+      'มีทั้งอาหารเกียวโต ยูโดฟุ ทาโกะยากิ โอโคโนมิยากิ คุชิคัตสึ และเนื้อโกเบ แสดงให้เห็นทั้งความประณีตและความอร่อยแบบเข้าถึงง่าย',
+      '京都料理、汤豆腐、章鱼烧、大阪烧、串炸和神户牛等美食并存，既有精致风味，也有亲民小吃。'
+    ),
+    accessibility: createLocalizedText(
+      '関西国際空港や伊丹空港、東海道・山陽新幹線、私鉄網が充実しており、都市間移動も日帰り観光も容易です。',
+      'Kansai is easy to navigate thanks to Kansai International Airport, Itami Airport, the Tokaido and Sanyo Shinkansen, and dense private railway networks.',
+      'เดินทางในคันไซได้ง่ายด้วยสนามบินคันไซและอิตามิ รวมถึงโทไคโดและซันโยชินคันเซ็น ตลอดจนเครือข่ายรถไฟเอกชนที่หนาแน่น',
+      '关西拥有关西国际机场、伊丹机场、东海道与山阳新干线以及密集的私铁网络，城市间移动和一日游都很方便。'
+    ),
+  },
+  chugoku: {
+    history: createLocalizedText(
+      '毛利氏などの大名文化、山陰山陽を結ぶ交易、瀬戸内海の海運によって発展してきた地域です。広島は戦後、平和都市として再生を遂げました。',
+      'The region developed through daimyo culture led by clans such as the Mori, trade linking Sanin and Sanyo, and maritime routes on the Seto Inland Sea. Hiroshima was later rebuilt as a city of peace.',
+      'ภูมิภาคนี้พัฒนาขึ้นจากวัฒนธรรมไดเมียวอย่างตระกูลโมริ การค้าระหว่างซันอินกับซันโย และการคมนาคมทางทะเลในทะเลเซโตะใน เมืองฮิโรชิม่าหลังสงครามก็ได้รับการฟื้นฟูขึ้นใหม่ในฐานะเมืองแห่งสันติภาพ',
+      '该地区在毛利氏等大名文化、连接山阴与山阳的贸易以及濑户内海海运的推动下发展起来。广岛在战后重建，成为和平之城。'
+    ),
+    regional_culture: createLocalizedText(
+      '神楽や伝統芸能、焼き物、神話の残る社寺文化などが受け継がれています。瀬戸内の穏やかな港町文化も魅力の一つです。',
+      'Kagura performances, traditional crafts, ceramics, and shrine traditions tied to ancient myths remain deeply rooted. Calm port-town culture along the Seto Inland Sea is another draw.',
+      'ยังคงสืบทอดการแสดงคางุระ งานฝีมือ เครื่องปั้นดินเผา และวัฒนธรรมศาลเจ้าที่เกี่ยวข้องกับตำนานโบราณ อีกเสน่ห์หนึ่งคือวัฒนธรรมเมืองท่าที่สงบของทะเลเซโตะใน',
+      '神乐、传统艺能、陶艺以及与古老神话相连的社寺文化在这里仍被传承，濑户内海沿岸宁静的港口文化也是魅力之一。'
+    ),
+    natural_features: createLocalizedText(
+      '鳥取砂丘、帝釈峡、中国山地、瀬戸内の多島美など、海・山・大地の変化に富んだ景観が広がります。',
+      'The landscape ranges from the Tottori Sand Dunes and Taishaku Gorge to the Chugoku Mountains and the island-dotted beauty of the Seto Inland Sea.',
+      'มีทิวทัศน์ที่หลากหลายทั้งเนินทรายทตโตริ ช่องเขาไทชาคุ เทือกเขาจูโกกุ และความงามของหมู่เกาะในทะเลเซโตะใน',
+      '这里景观变化丰富，包括鸟取沙丘、帝释峡、中国山地以及濑户内海多岛海景。'
+    ),
+    climate: createLocalizedText(
+      '瀬戸内海側は晴天が多く温暖ですが、日本海側は雨や雪が多めです。同じ地方でも気候差がはっきりしています。',
+      'The Seto Inland Sea side is generally sunny and mild, while the Sea of Japan side sees more rain and snow. Climatic contrasts within the region are quite clear.',
+      'ฝั่งทะเลเซโตะในมักมีอากาศอบอุ่นและแดดดี ส่วนฝั่งทะเลญี่ปุ่นมีฝนและหิมะมากกว่า ทำให้ภูมิภาคเดียวกันนี้มีความต่างด้านภูมิอากาศชัดเจน',
+      '濑户内海一侧通常阳光充足且温暖，而日本海一侧雨雪较多，同一地区内部的气候差异十分明显。'
+    ),
+    local_cuisine: createLocalizedText(
+      '広島風お好み焼き、牡蠣、出雲そば、ふぐ、瀬戸内の魚介類など、海と山の恵みを生かした料理が豊富です。',
+      'Hiroshima-style okonomiyaki, oysters, Izumo soba, fugu, and seafood from the Seto Inland Sea highlight the regional table.',
+      'มีอาหารเด่นอย่างโอโคโนมิยากิสไตล์ฮิโรชิม่า หอยนางรม อิซุโมะโซบะ ปลาปักเป้า และอาหารทะเลจากทะเลเซโตะใน',
+      '广岛风御好烧、牡蛎、出云荞麦面、河豚和濑户内海海鲜等，展现了这里丰富的山海风味。'
+    ),
+    accessibility: createLocalizedText(
+      '山陽新幹線が主要都市を結び、空港やフェリーも利用できます。広島や岡山を拠点に周辺観光地へアクセスしやすい地方です。',
+      'Major cities are linked by the Sanyo Shinkansen, with airports and ferries adding flexibility. Hiroshima and Okayama make useful bases for exploring the wider area.',
+      'เมืองหลักเชื่อมกันด้วยซันโยชินคันเซ็น และยังมีสนามบินกับเรือเฟอร์รีให้เลือกใช้ ฮิโรชิม่าและโอคายามะจึงเป็นฐานที่ดีสำหรับเที่ยวพื้นที่รอบ ๆ',
+      '主要城市由山阳新干线连接，也可利用机场和渡轮。以广岛或冈山为据点前往周边景点都很方便。'
+    ),
+  },
+  shikoku: {
+    history: createLocalizedText(
+      '古くから海上交通と信仰の道で栄え、江戸時代には城下町や港町が発展しました。四国遍路は今も地域の精神文化を象徴しています。',
+      'Shikoku prospered through maritime routes and pilgrimage traditions, while castle towns and ports grew during the Edo period. The Shikoku Pilgrimage still symbolizes the spiritual character of the region.',
+      'ชิโกกุรุ่งเรืองมาจากเส้นทางทางทะเลและประเพณีแสวงบุญ โดยในสมัยเอโดะเมืองปราสาทและเมืองท่าก็เติบโตขึ้น การจาริก 88 วัดยังคงเป็นสัญลักษณ์ของจิตวิญญาณภูมิภาคนี้จนถึงปัจจุบัน',
+      '四国自古因海上交通与信仰之路而繁荣，江户时期城下町和港口城镇进一步发展。四国遍路至今仍象征着这里的精神文化。'
+    ),
+    regional_culture: createLocalizedText(
+      'お遍路文化、阿波おどり、藍染や和紙などの工芸が受け継がれています。土地の穏やかさと信仰文化の深さが共存しています。',
+      'Pilgrimage culture, the Awa Odori dance festival, and crafts such as indigo dyeing and washi remain central to local identity. Calm daily life and deep religious traditions coexist here.',
+      'วัฒนธรรมการแสวงบุญ การเต้นอาวะโอโดริ และงานฝีมืออย่างการย้อมครามกับกระดาษวาชิยังคงเป็นแกนหลักของอัตลักษณ์ท้องถิ่น วิถีชีวิตสงบและศรัทธาอันลึกซึ้งอยู่ร่วมกันได้อย่างกลมกลืน',
+      '遍路文化、阿波舞以及蓝染、和纸等工艺仍是当地身份的重要部分，平和的生活节奏与深厚的信仰传统在此并存。'
+    ),
+    natural_features: createLocalizedText(
+      '四万十川、祖谷渓、室戸岬、足摺岬など、清流や渓谷、海岸景観に恵まれています。',
+      'Natural highlights include the Shimanto River, Iya Valley, Cape Muroto, and Cape Ashizuri, offering clear rivers, deep gorges, and dramatic coastal views.',
+      'จุดเด่นทางธรรมชาติ ได้แก่ แม่น้ำชิมันโตะ หุบเขาอิยะ แหลมมุโระโตะ และแหลมอาชิซุริ ซึ่งมีทั้งลำน้ำใส หุบเขาลึก และวิวชายฝั่งอันน่าตื่นตา',
+      '自然亮点包括四万十川、祖谷溪、室户岬和足摺岬，拥有清流、峡谷与壮观海岸景色。'
+    ),
+    climate: createLocalizedText(
+      '瀬戸内側は比較的温暖で晴天が多く、太平洋側は雨量が多めです。夏から秋にかけては台風の影響を受けやすい地域です。',
+      'The Seto Inland Sea side is generally mild and sunny, while the Pacific side is wetter. The region is also more exposed to typhoons from summer into autumn.',
+      'ฝั่งทะเลเซโตะในค่อนข้างอบอุ่นและมีแดดมาก ส่วนฝั่งมหาสมุทรแปซิฟิกมีฝนมากกว่า และตั้งแต่ฤดูร้อนถึงฤดูใบไม้ร่วงมักได้รับอิทธิพลจากไต้ฝุ่น',
+      '濑户内海一侧通常温暖晴朗，太平洋一侧降水较多，夏秋季也较容易受到台风影响。'
+    ),
+    local_cuisine: createLocalizedText(
+      '讃岐うどん、かつおのたたき、鯛めし、柑橘類、徳島ラーメンなど、素朴ながら記憶に残る味が揃います。',
+      'Sanuki udon, seared bonito, tai-meshi, citrus fruits, and Tokushima ramen are among the memorable local specialties.',
+      'มีเมนูเด่นอย่างซานุกิอุด้ง คัตสึโอะทาทากิ ข้าวปลาไท ผลไม้ตระกูลส้ม และโทคุชิมะราเม็ง ซึ่งล้วนเรียบง่ายแต่จดจำได้ดี',
+      '赞岐乌冬、炙烤鲣鱼、鲷鱼饭、柑橘类水果和德岛拉面等，都是朴实却令人难忘的地方味道。'
+    ),
+    accessibility: createLocalizedText(
+      '本州とは瀬戸大橋などの連絡橋で結ばれ、高松・松山・高知・徳島の各空港も利用できます。鉄道はややゆったりしているため、レンタカー旅も人気です。',
+      'Shikoku is connected to Honshu by major bridges such as the Great Seto Bridge, and airports in Takamatsu, Matsuyama, Kochi, and Tokushima add options. Because rail travel is slower, road trips are also popular.',
+      'ชิโกกุเชื่อมกับฮอนชูผ่านสะพานใหญ่ เช่น สะพานเซโตะ และยังใช้สนามบินที่ทาคามัตสึ มัตสึยามะ โคจิ และโทคุชิมะได้ด้วย เนื่องจากรถไฟค่อนข้างช้า การเช่ารถขับจึงเป็นทางเลือกยอดนิยม',
+      '四国通过濑户大桥等联络桥与本州相连，也可利用高松、松山、高知和德岛机场。由于铁路节奏较慢，自驾旅行也很受欢迎。'
+    ),
+  },
+  kyushu: {
+    history: createLocalizedText(
+      '古くからアジアとの交流の玄関口であり、貿易、キリスト教伝来、近代産業の発展など、日本史の転換点にたびたび登場する地域です。',
+      'Kyushu has long served as the gateway from Japan to Asia and appears repeatedly at turning points in national history through trade, the arrival of Christianity, and modern industrial development.',
+      'คิวชูเป็นประตูสู่เอเชียของญี่ปุ่นมาแต่โบราณ และมักปรากฏในจุดเปลี่ยนสำคัญของประวัติศาสตร์ญี่ปุ่น ทั้งด้านการค้า การเข้ามาของคริสต์ศาสนา และการพัฒนาอุตสาหกรรมสมัยใหม่',
+      '九州自古就是日本通往亚洲的门户，在贸易、基督教传入以及近代工业发展等日本历史转折点上都占有重要位置。'
+    ),
+    regional_culture: createLocalizedText(
+      '博多祇園山笠や長崎くんちなどの祭り、焼き物文化、温泉文化、南国らしい開放的な気質が地域性をつくっています。',
+      'Festivals such as Hakata Gion Yamakasa and Nagasaki Kunchi, ceramic traditions, hot spring culture, and a warm, open atmosphere shape local identity.',
+      'เทศกาลอย่างฮากาตะกิองยามากาสะและนางาซากิคุนจิ วัฒนธรรมเครื่องปั้นดินเผา วัฒนธรรมออนเซ็น และบรรยากาศเปิดกว้างแบบเมืองใต้ ล้วนสร้างเอกลักษณ์ของภูมิภาคนี้',
+      '博多祇园山笠、长崎宫日节等祭典、陶瓷文化、温泉文化以及南方特有的开放气质，共同塑造了九州的地方特色。'
+    ),
+    natural_features: createLocalizedText(
+      '阿蘇山、桜島、霧島連山、海岸線、温泉地など、火山が生み出したダイナミックな自然に恵まれています。',
+      'Kyushu is rich in dramatic volcanic scenery, including Mount Aso, Sakurajima, the Kirishima range, rugged coastlines, and famous hot spring areas.',
+      'คิวชูเต็มไปด้วยธรรมชาติอันยิ่งใหญ่จากภูเขาไฟ เช่น ภูเขาอะโสะ ซากุระจิมะ เทือกเขาคิริชิมะ แนวชายฝั่ง และแหล่งออนเซ็นชื่อดัง',
+      '九州拥有由火山塑造的壮丽自然景观，包括阿苏山、樱岛、雾岛连山、海岸线以及知名温泉地。'
+    ),
+    climate: createLocalizedText(
+      '全体的に温暖で、北部と南部で気候差があります。梅雨や台風の影響を受けやすい一方、冬も比較的過ごしやすい地域です。',
+      'The climate is generally warm, with noticeable differences between north and south. Rainy season and typhoons have a strong influence, but winters are often relatively mild.',
+      'โดยรวมมีอากาศอบอุ่นและมีความแตกต่างระหว่างตอนเหนือกับตอนใต้ ได้รับอิทธิพลจากฤดูฝนและไต้ฝุ่นค่อนข้างมาก แต่ฤดูหนาวมักไม่รุนแรงนัก',
+      '整体气候温暖，南北之间存在差异。这里较容易受到梅雨和台风影响，但冬季通常也相对温和。'
+    ),
+    local_cuisine: createLocalizedText(
+      '博多ラーメン、もつ鍋、宮崎のチキン南蛮、鹿児島黒豚、焼酎など、力強く個性のある味が集まっています。',
+      'Strong regional flavors include Hakata ramen, motsunabe, Miyazaki chicken nanban, Kagoshima black pork, and a wide range of shochu.',
+      'มีรสชาติท้องถิ่นที่ชัดเจน เช่น ฮากาตะราเม็ง โมตสึนาเบะ ไก่นัมบังของมิยาซากิ หมูดำคาโกชิมะ และโชจูหลากหลายชนิด',
+      '这里汇集了风味鲜明的地方美食，如博多拉面、内脏锅、宫崎南蛮鸡、鹿儿岛黑猪和各种烧酒。'
+    ),
+    accessibility: createLocalizedText(
+      '九州新幹線や西九州新幹線、各都市の空港、港からのフェリー網が整っており、南北の周遊旅行がしやすい地域です。',
+      'The Kyushu and Nishi-Kyushu Shinkansen, city airports, and ferry links from major ports make travel across the region relatively easy.',
+      'มีทั้งคิวชูชินคันเซ็น นิชิคิวชูชินคันเซ็น สนามบินในเมืองหลัก และเครือข่ายเรือเฟอร์รีจากท่าเรือสำคัญ ทำให้เดินทางเที่ยวเหนือจรดใต้ได้สะดวก',
+      '九州新干线、西九州新干线、各城市机场以及主要港口的渡轮网络，使得纵向游览整个地区相当方便。'
+    ),
+  },
+  okinawa: {
+    history: createLocalizedText(
+      'かつて琉球王国として海上交易で栄え、1879年に沖縄県となりました。戦争の記憶と戦後復興の歴史も、現在の沖縄を理解する上で欠かせません。',
+      'Once prosperous as the Ryukyu Kingdom through maritime trade, Okinawa became a Japanese prefecture in 1879. Memories of war and postwar recovery are also essential to understanding the islands today.',
+      'ครั้งหนึ่งเคยรุ่งเรืองในฐานะอาณาจักรริวกิวจากการค้าทางทะเล ก่อนจะกลายเป็นจังหวัดโอกินาว่าในปี 1879 ความทรงจำจากสงครามและการฟื้นฟูหลังสงครามก็เป็นส่วนสำคัญในการเข้าใจโอกินาว่าในปัจจุบัน',
+      '冲绳曾以琉球王国身份凭借海上贸易而繁荣，并于1879年成为冲绳县。战争记忆与战后复兴历史，也是理解今日冲绳不可缺少的一部分。'
+    ),
+    regional_culture: createLocalizedText(
+      '三線、エイサー、琉球舞踊、紅型、空手など、本土とは異なる独自の文化が今も日常に息づいています。',
+      'Sanshin music, Eisa dance, Ryukyu dance, bingata dyeing, and karate all reflect a living culture distinct from mainland Japan.',
+      'ดนตรีซันชิน การเต้นเอสะ ระบำริวกิว การย้อมผ้าบิงาตะ และคาราเต้ ล้วนสะท้อนวัฒนธรรมมีชีวิตที่แตกต่างจากญี่ปุ่นแผ่นดินใหญ่',
+      '三线、Eisa舞、琉球舞蹈、红型染与空手等，都体现了至今仍鲜活存在、且不同于日本本土的独特文化。'
+    ),
+    natural_features: createLocalizedText(
+      '透明度の高い海、サンゴ礁、マングローブ、離島のビーチなど、南国らしい海洋自然が圧倒的です。',
+      'Crystal-clear seas, coral reefs, mangroves, and remote island beaches make Okinawa one of the most striking marine environments in Japan.',
+      'ทะเลใส แนวปะการัง ป่าชายเลน และชายหาดของเกาะห่างไกล ทำให้โอกินาว่าเป็นหนึ่งในภูมิทัศน์ทางทะเลที่โดดเด่นที่สุดของญี่ปุ่น',
+      '清澈海水、珊瑚礁、红树林以及离岛海滩，共同构成了冲绳极具代表性的海洋自然景观。'
+    ),
+    climate: createLocalizedText(
+      '一年を通して温暖な亜熱帯性気候で、夏は長く日差しが強めです。梅雨と台風の時期には天候の変化に注意が必要です。',
+      'The islands have a warm subtropical climate year-round, with long sunny summers. Visitors should watch for changing weather during the rainy season and typhoon periods.',
+      'มีภูมิอากาศกึ่งเขตร้อนอบอุ่นตลอดปี ฤดูร้อนยาวและแดดแรง ควรระวังสภาพอากาศที่เปลี่ยนแปลงในช่วงฤดูฝนและฤดูไต้ฝุ่น',
+      '这里全年温暖，属于亚热带气候，夏季漫长且阳光强烈。梅雨和台风季节需要特别留意天气变化。'
+    ),
+    local_cuisine: createLocalizedText(
+      '沖縄そば、ゴーヤーチャンプルー、ラフテー、タコライス、海ぶどう、泡盛など、独自性の高い食文化が楽しめます。',
+      'Distinctive food culture includes Okinawa soba, goya champuru, rafute, taco rice, sea grapes, and awamori.',
+      'มีอาหารเอกลักษณ์อย่างโอกินาว่าโซบะ โกยะจัมปุรุ ราฟุเตะ ทาโกะไรซ์ องุ่นทะเล และอาวาโมริ',
+      '独具特色的饮食文化包括冲绳荞麦面、苦瓜炒杂烩、红烧五花肉、塔可饭、海葡萄和泡盛。'
+    ),
+    accessibility: createLocalizedText(
+      '那覇空港が主な玄関口で、離島へは飛行機やフェリーが利用できます。島ごとに移動時間が異なるため、旅程には余裕を持つのがおすすめです。',
+      'Naha Airport is the main gateway, and outlying islands can be reached by plane or ferry. Because travel times vary widely by island, a flexible itinerary works best.',
+      'สนามบินนาฮะเป็นประตูหลัก ส่วนเกาะรอบนอกสามารถเดินทางต่อได้ด้วยเครื่องบินหรือเรือเฟอร์รี เนื่องจากเวลาเดินทางแต่ละเกาะต่างกันมาก จึงควรวางแผนเผื่อเวลาไว้',
+      '那霸机场是主要门户，前往离岛可搭乘飞机或渡轮。由于各岛之间所需时间差异较大，行程安排最好预留弹性。'
+    ),
+  },
+};
+
+const PLACE_SUPPLEMENTS: Record<string, Record<string, PlaceSupplement>> = {
+  chubu: {
+    kanazawa: {
+      history: createLocalizedText(
+        '加賀藩前田家の城下町として栄え、第二次世界大戦の戦災を比較的免れたため、武家屋敷や茶屋街の町並みがよく残っています。',
+        'Kanazawa flourished as the castle town of the Maeda clan in Kaga Domain. Because it escaped major wartime destruction, samurai districts and teahouse streets remain beautifully preserved.',
+        'คานาซาวะรุ่งเรืองในฐานะเมืองปราสาทของตระกูลมาเอดะแห่งแคว้นคางะ และเพราะได้รับความเสียหายจากสงครามน้อย เมืองจึงยังคงย่านซามูไรและย่านโรงน้ำชาเก่าไว้ได้อย่างงดงาม',
+        '金泽曾作为加贺藩前田家的城下町而繁荣。由于二战中较少遭到破坏，武家屋敷与茶屋街风貌得以很好地保存。'
+      ),
+      culture_festivals: createLocalizedText(
+        '初夏の金沢百万石まつりが特に有名で、加賀藩ゆかりの華やかな行列が街を彩ります。伝統芸能や工芸体験も充実しています。',
+        'The Kanazawa Hyakumangoku Festival in early summer is the best-known event, with elegant parades celebrating the Kaga domain. Traditional arts and craft experiences are also abundant.',
+        'งานเด่นคือเทศกาลคานาซาวะเฮียคุมังกกุในต้นฤดูร้อน ซึ่งมีขบวนแห่หรูหราที่สะท้อนยุคแคว้นคางะ นอกจากนี้ยังมีกิจกรรมศิลปะการแสดงและงานฝีมือดั้งเดิมมากมาย',
+        '最著名的是初夏举办的金泽百万石祭，以再现加贺藩风华的华丽游行闻名，传统艺能和工艺体验也很丰富。'
+      ),
+      things_to_do: createLocalizedText(
+        '兼六園、ひがし茶屋街、近江町市場、長町武家屋敷跡、21世紀美術館などを巡るのがおすすめです。',
+        'Recommended stops include Kenrokuen, Higashi Chaya District, Omicho Market, the Nagamachi samurai district, and the 21st Century Museum of Contemporary Art.',
+        'สถานที่แนะนำ ได้แก่ สวนเค็นโรคุเอ็น ย่านฮิงาชิชายะ ตลาดโอมิโจ ย่านซามูไรนางามาจิ และพิพิธภัณฑ์ศิลปะร่วมสมัยศตวรรษที่ 21',
+        '推荐游览兼六园、东茶屋街、近江町市场、长町武家屋敷遗迹以及21世纪美术馆。'
+      ),
+      local_cuisine: createLocalizedText(
+        'のどぐろやカニなどの海鮮、治部煮、金箔スイーツ、加賀野菜を使った料理が人気です。',
+        'Popular foods include seafood such as rosy seabass and crab, jibu-ni stew, gold leaf sweets, and dishes made with Kaga vegetables.',
+        'อาหารยอดนิยม ได้แก่ อาหารทะเลอย่างปลาโนโดกุโระและปู สตูว์จิบุนิ ขนมทองคำเปลว และอาหารที่ใช้ผักคางะ',
+        '人气美食包括喉黑鱼、螃蟹等海鲜、治部煮、金箔甜点以及使用加贺蔬菜制作的料理。'
+      ),
+      access: createLocalizedText(
+        '東京から北陸新幹線で約2時間半。市内観光は周遊バスが便利で、主要見どころを効率よく回れます。',
+        'It takes about 2.5 hours from Tokyo on the Hokuriku Shinkansen. Loop buses make it easy to visit the main sights within the city.',
+        'จากโตเกียวใช้เวลาประมาณ 2 ชั่วโมงครึ่งด้วยโฮคุริคุชินคันเซ็น การเที่ยวในเมืองสะดวกด้วยรถบัสวนรอบที่เชื่อมจุดสำคัญต่าง ๆ',
+        '从东京搭乘北陆新干线约2个半小时。市内有便利的观光循环巴士，可高效游览主要景点。'
+      ),
+    },
+    'shirakawa-go': {
+      history: createLocalizedText(
+        '豪雪に適応した合掌造りの家々が受け継がれ、養蚕や農業で暮らしを支えてきた山村です。現在は世界遺産として保存されています。',
+        'This mountain village preserved gassho-zukuri houses designed for heavy snow, and local life was long supported by farming and sericulture. Today it is protected as a World Heritage site.',
+        'หมู่บ้านภูเขาแห่งนี้สืบทอดบ้านกัสโชซูคุริที่ออกแบบให้รับมือหิมะหนัก วิถีชีวิตเคยพึ่งพาเกษตรกรรมและการเลี้ยงไหม ปัจจุบันได้รับการอนุรักษ์เป็นมรดกโลก',
+        '这个山村保留了适应豪雪环境的合掌造民居，当地过去依靠农业和养蚕维生，如今作为世界遗产受到保护。'
+      ),
+      culture_festivals: createLocalizedText(
+        'どぶろく祭や冬のライトアップが有名で、季節ごとに集落の表情が大きく変わります。昔ながらの生活文化に触れられるのも魅力です。',
+        'The Doburoku Festival and winter illuminations are especially well known, and the village changes dramatically with the seasons. Visitors can also experience elements of traditional rural life.',
+        'มีชื่อเสียงจากเทศกาลโดบุโระกุและการประดับไฟฤดูหนาว โดยบรรยากาศของหมู่บ้านจะเปลี่ยนไปมากในแต่ละฤดูกาล อีกเสน่ห์คือการได้สัมผัสวิถีชีวิตชนบทแบบดั้งเดิม',
+        '浊酒祭和冬季点灯活动尤其有名，村落会随季节呈现截然不同的面貌，也能让人感受到传统山村生活文化。'
+      ),
+      things_to_do: createLocalizedText(
+        '荻町集落の散策、展望台からの眺望、合掌造り民家園の見学、雪景色や田園風景の写真撮影がおすすめです。',
+        'Recommended activities include walking through Ogimachi, viewing the village from the observation deck, visiting open-air farmhouse museums, and photographing the seasonal scenery.',
+        'กิจกรรมแนะนำคือเดินชมหมู่บ้านโอกิมาจิ ชมวิวจากจุดชมวิว เยี่ยมชมพิพิธภัณฑ์บ้านกัสโช และถ่ายภาพทิวทัศน์ตามฤดูกาล',
+        '推荐活动包括漫步荻町聚落、在观景台俯瞰全景、参观合掌造民家园，以及拍摄四季风景。'
+      ),
+      local_cuisine: createLocalizedText(
+        '飛騨牛、五平餅、山菜料理、そば、地酒やどぶろくなど、山里ならではの素朴な味が楽しめます。',
+        'Hida beef, gohei mochi, mountain vegetable dishes, soba, local sake, and doburoku offer hearty mountain flavors.',
+        'สามารถลิ้มลองรสชาติแบบหมู่บ้านภูเขา เช่น เนื้อฮิดะ โกเฮโมจิ อาหารผักป่า โซบะ สาเกท้องถิ่น และโดบุโระกุ',
+        '可以品尝飞驒牛、五平饼、山菜料理、荞麦面、地酒和浊酒等具有山村风味的美食。'
+      ),
+      access: createLocalizedText(
+        '鉄道駅はなく、高山・金沢・白川郷を結ぶ高速バスの利用が一般的です。冬季は天候による遅延にも注意が必要です。',
+        'There is no train station in the village, so highway buses from Takayama, Kanazawa, and nearby cities are the standard way to visit. In winter, weather-related delays are possible.',
+        'ไม่มีสถานีรถไฟในหมู่บ้าน การเดินทางหลักคือรถบัสด่วนจากทาคายามะ คานาซาวะ และเมืองใกล้เคียง โดยฤดูหนาวควรเผื่อเวลาสำหรับความล่าช้าจากสภาพอากาศ',
+        '白川乡没有铁路车站，通常需搭乘来自高山、金泽等地的高速巴士前往。冬季还需留意天气造成的延误。'
+      ),
+    },
+    takayama: {
+      history: createLocalizedText(
+        '江戸時代には幕府直轄地として栄え、商人町の古い町並みが今も残ります。周辺の飛騨文化と木工技術も高山の歴史を支えてきました。',
+        'Takayama prospered as a shogunate-controlled town in the Edo period, and its merchant streets survive today. Hida culture and woodworking traditions are also central to its history.',
+        'ทาคายามะรุ่งเรืองในสมัยเอโดะในฐานะเมืองที่อยู่ภายใต้การปกครองโดยตรงของโชกุน และถนนย่านพ่อค้าเก่ายังคงหลงเหลือมาถึงปัจจุบัน วัฒนธรรมฮิดะและงานไม้ก็เป็นส่วนสำคัญของประวัติศาสตร์เมืองนี้',
+        '高山在江户时代曾作为幕府直辖地而繁荣，商人街的古老街景至今仍保存完好，飞驒文化与木工传统也构成了这座城市的重要历史。'
+      ),
+      culture_festivals: createLocalizedText(
+        '春と秋の高山祭は豪華な屋台で知られ、日本屈指の美しい祭りとされます。朝市や地酒文化も旅情を高めてくれます。',
+        'The spring and autumn Takayama Festivals are famous for their ornate floats and are often ranked among the most beautiful festivals in Japan. Morning markets and sake culture add to the charm.',
+        'เทศกาลทาคายามะฤดูใบไม้ผลิและฤดูใบไม้ร่วงมีชื่อเสียงจากรถแห่ที่วิจิตร และมักถูกยกให้เป็นหนึ่งในเทศกาลที่สวยที่สุดของญี่ปุ่น ตลาดเช้าและวัฒนธรรมสาเกก็ช่วยเพิ่มเสน่ห์ของเมือง',
+        '春秋两季的高山祭以华丽屋台著称，被视为日本最美的祭典之一，晨市与地酒文化也让旅程更有风情。'
+      ),
+      things_to_do: createLocalizedText(
+        '古い町並みの散策、宮川朝市、飛騨民俗村、酒蔵巡り、近郊の上高地や白川郷への小旅行がおすすめです。',
+        'Highlights include walking the old town, browsing the Miyagawa morning market, visiting Hida Folk Village, touring sake breweries, and making side trips to Kamikochi or Shirakawa-go.',
+        'ไฮไลต์คือการเดินชมเมืองเก่า ตลาดเช้ามิยากาวะ หมู่บ้านพื้นบ้านฮิดะ การเยี่ยมชมโรงหมักสาเก และการเดินทางต่อไปคามิโคจิหรือชิราคาวาโกะ',
+        '推荐活动包括漫步古街、逛宫川朝市、参观飞驒民俗村、走访酒藏，以及前往上高地或白川乡一日游。'
+      ),
+      local_cuisine: createLocalizedText(
+        '飛騨牛、朴葉味噌、高山ラーメン、みたらし団子などが定番で、素朴で香り高い山の味が魅力です。',
+        'Classic local foods include Hida beef, hoba miso, Takayama ramen, and mitarashi dango, all reflecting the fragrant simplicity of mountain cuisine.',
+        'อาหารประจำถิ่นที่ควรลอง ได้แก่ เนื้อฮิดะ โฮบะมิโสะ ทาคายามะราเม็ง และดังโงะมิตาราชิ ซึ่งสะท้อนรสชาติเรียบง่ายแบบเมืองภูเขา',
+        '经典美食包括飞驒牛、朴叶味噌、高山拉面和御手洗团子，展现了山地料理朴实而有香气的风味。'
+      ),
+      access: createLocalizedText(
+        '名古屋や富山からJR特急でアクセスでき、白川郷や新穂高方面へのバス便も豊富です。コンパクトな街なので徒歩観光もしやすいです。',
+        'Takayama is accessible by JR limited express from Nagoya and Toyama, and buses connect the city to Shirakawa-go and the Shinhotaka area. The center is compact and easy to explore on foot.',
+        'สามารถเดินทางถึงทาคายามะได้ด้วยรถไฟด่วน JR จากนาโกย่าหรือโทยามะ และยังมีรถบัสไปชิราคาวาโกะกับชินโฮตากะมากมาย ตัวเมืองมีขนาดกะทัดรัด เดินเที่ยวได้สะดวก',
+        '可从名古屋或富山搭乘JR特急前往高山，也有多条巴士线路连接白川乡与新穗高一带。市中心紧凑，适合步行游览。'
+      ),
+    },
+  },
+  kansai: {
+    kyoto: {
+      history: createLocalizedText(
+        '794年の平安京遷都から長く都として栄え、多くの寺社、庭園、伝統産業が育まれました。戦災を大きく受けなかったため、歴史景観が今も色濃く残ります。',
+        'From the transfer of the capital to Heian-kyo in 794, Kyoto flourished for centuries as the imperial capital. Because it avoided major wartime destruction, historic townscapes and traditions remain remarkably intact.',
+        'เกียวโตเจริญรุ่งเรืองในฐานะราชธานีมายาวนานตั้งแต่การย้ายเมืองหลวงไปยังเฮอันเคียวในปี 794 และเพราะได้รับความเสียหายจากสงครามไม่มาก ภูมิทัศน์ทางประวัติศาสตร์จึงยังคงชัดเจนถึงปัจจุบัน',
+        '自794年迁都平安京后，京都长期作为都城繁荣发展。由于较少遭受战火破坏，历史街景与传统文化至今仍保存得十分完整。'
+      ),
+      culture_festivals: createLocalizedText(
+        '祇園祭、時代祭、葵祭は京都を代表する三大祭りです。茶道、華道、京友禅などの伝統文化も街の日常に息づいています。',
+        'Gion Matsuri, Jidai Matsuri, and Aoi Matsuri are the city most famous festivals. Tea ceremony, flower arrangement, and Kyoto dyeing traditions still shape everyday culture.',
+        'กิองมัตสึริ จิไดมัตสึริ และอาโออิมัตสึริคือสามเทศกาลสำคัญของเกียวโต ขณะที่พิธีชงชา การจัดดอกไม้ และงานย้อมผ้าแบบเกียวโตก็ยังคงอยู่ในชีวิตประจำวันของเมือง',
+        '祇园祭、时代祭和葵祭是京都最具代表性的三大祭典，茶道、花道与京友禅等传统文化也依然融入日常生活。'
+      ),
+      things_to_do: createLocalizedText(
+        '清水寺、金閣寺、嵐山、伏見稲荷、祇園の町歩き、京町家カフェ巡りなど、見どころが尽きません。',
+        'There is no shortage of highlights, from Kiyomizu-dera, Kinkaku-ji, Arashiyama, and Fushimi Inari to walks through Gion and visits to machiya cafes.',
+        'สถานที่น่าเที่ยวมีไม่สิ้นสุด ทั้งวัดคิโยมิสุ วัดคินคะคุจิ อาราชิยามะ ฟูชิมิอินาริ การเดินเล่นในกิอง และคาเฟ่ในบ้านมาจิยะ',
+        '可游览的景点数不胜数，包括清水寺、金阁寺、岚山、伏见稻荷、祗园街区以及京町家咖啡馆。'
+      ),
+      local_cuisine: createLocalizedText(
+        '京懐石、湯豆腐、にしんそば、抹茶スイーツ、八つ橋など、繊細で季節感のある味が楽しめます。',
+        'Kyoto is known for delicate seasonal flavors such as kaiseki, yudofu, herring soba, matcha sweets, and yatsuhashi.',
+        'เกียวโตขึ้นชื่อเรื่องรสชาติละเมียดละไมตามฤดูกาล เช่น ไคเซกิ ยูโดฟุ โซบะปลาเฮร์ริง ขนมมัทฉะ และยัตสึฮาชิ',
+        '京都以精致且富有季节感的美食著称，如京怀石、汤豆腐、鲱鱼荞麦面、抹茶甜点和八桥。'
+      ),
+      access: createLocalizedText(
+        '東京から東海道新幹線で約2時間強。市内はバス、地下鉄、私鉄を組み合わせると主要観光地を回りやすいです。',
+        'Kyoto is a little over two hours from Tokyo by Tokaido Shinkansen. Within the city, buses, subways, and private railways together cover the main sightseeing areas.',
+        'จากโตเกียวใช้เวลาเพียงกว่าสองชั่วโมงด้วยโทไคโดชินคันเซ็น ภายในเมืองสามารถใช้รถบัส รถไฟใต้ดิน และรถไฟเอกชนร่วมกันเพื่อเที่ยวจุดสำคัญได้ง่าย',
+        '从东京搭乘东海道新干线约两小时多即可到达。市内结合巴士、地铁和私铁，就能轻松游览主要景点。'
+      ),
+    },
+    osaka: {
+      history: createLocalizedText(
+        '古くから商業都市として発展し、豊臣秀吉の大阪城築城以降は政治的にも重要な拠点となりました。近代以降も商都としての活気を保ち続けています。',
+        'Osaka grew as a major commercial city and became politically important after Toyotomi Hideyoshi built Osaka Castle. It has retained the energy of a merchant capital into the modern era.',
+        'โอซาก้าเติบโตมาในฐานะเมืองการค้าสำคัญ และมีบทบาททางการเมืองมากขึ้นหลังโทโยโตมิ ฮิเดโยชิสร้างปราสาทโอซาก้า เมืองนี้ยังคงความคึกคักแบบนครพ่อค้ามาจนถึงปัจจุบัน',
+        '大阪自古就是重要商都，在丰臣秀吉修建大阪城后也成为政治重地，并一直延续着商人之都的活力。'
+      ),
+      culture_festivals: createLocalizedText(
+        '天神祭は日本三大祭りの一つで、船渡御と花火が有名です。上方落語や漫才など、笑いの文化も大阪らしさを象徴します。',
+        'Tenjin Matsuri, one of Japan great festivals, is famous for its river procession and fireworks. Kamigata rakugo and manzai comedy also symbolize Osaka identity.',
+        'เทนจินมัตสึริเป็นหนึ่งในเทศกาลใหญ่ของญี่ปุ่น มีชื่อเสียงจากขบวนเรือและดอกไม้ไฟ ขณะที่ราคุโกะคามิงาตะและมันไซก็สะท้อนวัฒนธรรมเสียงหัวเราะแบบโอซาก้า',
+        '天神祭是日本最著名的祭典之一，以船渡御和烟花闻名；上方落语与漫才喜剧也象征着大阪的城市个性。'
+      ),
+      things_to_do: createLocalizedText(
+        '大阪城、道頓堀、梅田スカイビル、海遊館、新世界、ユニバーサル・スタジオ・ジャパンなど、楽しみ方が非常に多彩です。',
+        'Osaka Castle, Dotonbori, Umeda Sky Building, Kaiyukan Aquarium, Shinsekai, and Universal Studios Japan are among the many ways to enjoy the city.',
+        'เมืองนี้มีกิจกรรมหลากหลายมาก ทั้งปราสาทโอซาก้า โดทงโบริ อาคารอุเมดะสกาย พิพิธภัณฑ์สัตว์น้ำไคยูคัง ชินเซไก และยูนิเวอร์แซลสตูดิโอเจแปน',
+        '大阪的玩法非常丰富，包括大阪城、道顿堀、梅田蓝天大厦、海游馆、新世界以及环球影城。'
+      ),
+      local_cuisine: createLocalizedText(
+        'たこ焼き、お好み焼き、串カツ、きつねうどん、豚まんなど、気軽に食べ歩ける名物が充実しています。',
+        'Takoyaki, okonomiyaki, kushikatsu, kitsune udon, and pork buns make Osaka one of Japan best cities for casual food hopping.',
+        'มีของกินขึ้นชื่อให้เดินชิมมากมาย เช่น ทาโกะยากิ โอโคโนมิยากิ คุชิคัตสึ คิตสึเนะอุด้ง และซาลาเปาหมู',
+        '章鱼烧、大阪烧、串炸、狐狸乌冬和猪肉包等名物，让大阪成为最适合边走边吃的城市之一。'
+      ),
+      access: createLocalizedText(
+        '新大阪駅は新幹線の主要駅で、関西国際空港や伊丹空港からのアクセスも良好です。市内は地下鉄網が発達しています。',
+        'Shin-Osaka is a major Shinkansen station, and both Kansai International and Itami airports serve the city well. Osaka subway network is extensive and convenient.',
+        'ชินโอซาก้าเป็นสถานีชินคันเซ็นหลัก และยังเดินทางจากสนามบินคันไซหรืออิตามิได้สะดวก ภายในเมืองมีเครือข่ายรถไฟใต้ดินครอบคลุมมาก',
+        '新大阪站是重要的新干线车站，从关西国际机场和伊丹机场前往市区也很方便，地铁网络十分完善。'
+      ),
+    },
+    'fushimi-inari': {
+      history: createLocalizedText(
+        '711年創建と伝わる古社で、全国にある稲荷神社の総本宮として信仰を集めています。商売繁盛の神として特に親しまれています。',
+        'Believed to have been founded in 711, this shrine is the head shrine of thousands of Inari shrines across Japan and is especially revered as a place to pray for prosperity in business.',
+        'เชื่อกันว่าศาลเจ้านี้ก่อตั้งขึ้นในปี 711 และเป็นศาลเจ้าหลักของศาลเจ้าอินาริทั่วญี่ปุ่น จึงได้รับความเคารพอย่างมาก โดยเฉพาะในฐานะเทพแห่งความรุ่งเรืองทางการค้า',
+        '据传创建于711年，是日本各地稻荷神社的总本宫，尤其以祈求商业兴旺而广受信仰。'
+      ),
+      culture_festivals: createLocalizedText(
+        '初午大祭をはじめ、狐や稲穂を象徴とする稲荷信仰の文化が今も大切に守られています。朱色の鳥居群そのものが信仰の風景です。',
+        'Rituals such as the Hatsuuma Grand Festival keep Inari worship alive, with foxes and rice symbolism at the center. The endless vermilion torii themselves form a sacred landscape.',
+        'พิธีต่าง ๆ เช่น ฮัตสึอุมะไทไซยังคงสืบทอดความเชื่ออินาริ โดยมีสุนัขจิ้งจอกและรวงข้าวเป็นสัญลักษณ์สำคัญ ขบวนประตูโทริอิสีแดงสดเองก็เป็นภูมิทัศน์แห่งศรัทธา',
+        '初午大祭等仪式延续着稻荷信仰，狐狸与稻穗是其核心象征，连绵不断的朱红鸟居本身就是神圣景观。'
+      ),
+      things_to_do: createLocalizedText(
+        '千本鳥居を歩き、山道を登りながら摂社や奥社を巡るのが定番です。途中の展望所から京都市内を眺めるのもおすすめです。',
+        'The classic visit is to walk through the torii tunnels, climb the mountain paths, and stop at the smaller shrines and inner sanctuaries along the way. Viewpoints overlooking Kyoto are a bonus.',
+        'กิจกรรมยอดนิยมคือเดินลอดอุโมงค์โทริอิ ปีนเส้นทางบนภูเขา และแวะศาลเจ้าย่อยกับเขตศักดิ์สิทธิ์ด้านใน ระหว่างทางยังมีจุดชมวิวเมืองเกียวโตด้วย',
+        '经典玩法是穿行千本鸟居，沿山道参拜各处小神社与奥社，中途还能在观景点俯瞰京都市景。'
+      ),
+      local_cuisine: createLocalizedText(
+        '参道ではいなり寿司や和菓子、抹茶スイーツなどが人気です。京都らしい軽食を楽しみながら散策できます。',
+        'Along the approach, inari sushi, sweets, and matcha desserts are popular. It is easy to pair the visit with light Kyoto-style snacks.',
+        'ตามทางขึ้นมีของกินยอดนิยมอย่างอินาริซูชิ ขนมญี่ปุ่น และของหวานมัทฉะ จึงสามารถเดินเที่ยวพร้อมชิมของว่างสไตล์เกียวโตได้',
+        '参道上常见的人气美食有稻荷寿司、和果子和抹茶甜点，适合一边散步一边品尝京都风味小食。'
+      ),
+      access: createLocalizedText(
+        'JR奈良線の稲荷駅が目の前で、京阪伏見稲荷駅からも徒歩圏内です。京都駅から短時間でアクセスできます。',
+        'JR Inari Station sits directly in front of the shrine, and Keihan Fushimi-Inari Station is also within walking distance. The site is very quick to reach from Kyoto Station.',
+        'สถานี JR Inari อยู่หน้าศาลเจ้าโดยตรง และยังเดินจากสถานี Keihan Fushimi-Inari ได้อีกด้วย จึงเดินทางจากสถานีเกียวโตได้ในเวลาไม่นาน',
+        'JR稻荷站就在神社正前方，从京阪伏见稻荷站步行也很近，从京都站出发很快就能到达。'
+      ),
+    },
+    'nara-park': {
+      history: createLocalizedText(
+        '奈良の古都を代表する寺社が集まる一帯で、明治時代に公園として整備されました。鹿は神の使いとされ、長く守られてきた存在です。',
+        'The area gathers many of Nara ancient temples and shrines and was formally organized as a park in the Meiji era. The deer, regarded as sacred messengers, have been protected for centuries.',
+        'บริเวณนี้รวมวัดและศาลเจ้าสำคัญของนครโบราณนาราไว้มากมาย และได้รับการจัดเป็นสวนสาธารณะในสมัยเมจิ กวางที่นี่ถือเป็นผู้ส่งสารของเทพ จึงได้รับการคุ้มครองมาอย่างยาวนาน',
+        '这里汇聚了奈良古都最具代表性的寺社，并在明治时期整备为公园。鹿被视为神的使者，长期受到保护。'
+      ),
+      culture_festivals: createLocalizedText(
+        '若草山焼きや春日大社の祭礼など、奈良らしい年中行事が楽しめます。鹿と共生する風景そのものが奈良文化の象徴です。',
+        'Events such as the Wakakusa Yamayaki and Kasuga Taisha festivals showcase local traditions. The sight of deer living side by side with people is itself a symbol of Nara culture.',
+        'งานอย่างการเผาหญ้าบนภูเขาวากาคุสะและพิธีของศาลเจ้าคาสุกะไทฉะสะท้อนประเพณีนาราได้ชัดเจน ภาพกวางอยู่ร่วมกับผู้คนก็เป็นสัญลักษณ์ของวัฒนธรรมนาราเช่นกัน',
+        '若草山烧山和春日大社祭礼等活动展现了奈良传统，而鹿与人共处的景象本身就是奈良文化的象征。'
+      ),
+      things_to_do: createLocalizedText(
+        '鹿とのふれあい、東大寺の大仏見学、春日大社参拝、興福寺散策、奈良国立博物館の見学がおすすめです。',
+        'Recommended activities include meeting the deer, visiting the Great Buddha at Todai-ji, exploring Kasuga Taisha and Kofuku-ji, and stopping by the Nara National Museum.',
+        'กิจกรรมแนะนำคือพบปะกวาง ชมพระใหญ่ที่วัดโทไดจิ เยี่ยมศาลเจ้าคาสุกะไทฉะ เดินชมวัดโคฟุกุจิ และแวะพิพิธภัณฑสถานแห่งชาตินารา',
+        '推荐活动包括与鹿互动、参观东大寺大佛、游览春日大社和兴福寺，以及前往奈良国立博物馆。'
+      ),
+      local_cuisine: createLocalizedText(
+        '柿の葉寿司、三輪そうめん、奈良漬け、草餅など、古都らしい素朴な味に出会えます。',
+        'Local flavors include kakinoha-zushi, Miwa somen, narazuke pickles, and kusa mochi, all fitting the quiet mood of the old capital.',
+        'รสชาติท้องถิ่นที่ควรลอง ได้แก่ ซูชิใบพลับ เส้นโซเม็งมิวะ นาราซึเกะ และคุสะโมจิ ซึ่งเข้ากับบรรยากาศเมืองเก่าเป็นอย่างดี',
+        '地方美食有柿叶寿司、三轮素面、奈良渍和草饼等，风味朴实而充满古都气息。'
+      ),
+      access: createLocalizedText(
+        '近鉄奈良駅から徒歩圏内で、JR奈良駅からはバスも便利です。公園内は広いので歩きやすい靴がおすすめです。',
+        'The park is within walking distance of Kintetsu Nara Station, and buses from JR Nara Station are convenient. Comfortable walking shoes are a good idea because the grounds are extensive.',
+        'สวนอยู่ในระยะเดินจากสถานีคินเท็ตสึนารา และยังนั่งรถบัสจากสถานี JR Nara ได้สะดวก พื้นที่ค่อนข้างกว้างจึงควรใส่รองเท้าที่เดินสบาย',
+        '从近铁奈良站步行即可到达，从JR奈良站搭乘巴士也很方便。园区范围较大，建议穿着舒适的步行鞋。'
+      ),
+    },
+    'himeji-castle': {
+      history: createLocalizedText(
+        '現在の天守群は17世紀初頭に整えられたもので、現存天守を持つ名城として高く評価されています。白い漆喰壁の美しさから白鷺城とも呼ばれます。',
+        'The present main keep complex was completed in the early seventeenth century and is celebrated as one of Japan finest surviving castles. Its brilliant white plaster walls gave rise to the nickname White Heron Castle.',
+        'กลุ่มหอคอยหลักในปัจจุบันสร้างเสร็จช่วงต้นศตวรรษที่ 17 และได้รับการยกย่องว่าเป็นหนึ่งในปราสาทดั้งเดิมที่งดงามที่สุดของญี่ปุ่น กำแพงปูนสีขาวทำให้มีฉายาว่า ปราสาทนกกระสาขาว',
+        '现存天守群完成于17世纪初，被誉为日本保存最完好的名城之一。因洁白的灰泥墙面之美，也被称为白鹭城。'
+      ),
+      culture_festivals: createLocalizedText(
+        '春の桜と城の共演が特に人気で、姫路ゆかたまつりなど季節行事も親しまれています。ライトアップされた夜の姿も見応えがあります。',
+        'Cherry blossom season is especially popular, and events such as the Himeji Yukata Festival bring extra atmosphere. The illuminated castle at night is also striking.',
+        'ช่วงซากุระบานได้รับความนิยมมากเป็นพิเศษ และงานตามฤดูกาลอย่างเทศกาลยูกาตะฮิเมจิก็สร้างบรรยากาศคึกคัก ปราสาทยามค่ำคืนที่ประดับไฟก็งดงามมาก',
+        '樱花季时城堡与花景的组合尤其受欢迎，姬路浴衣祭等季节活动也很有人气，夜间点灯后的城堡同样值得一看。'
+      ),
+      things_to_do: createLocalizedText(
+        '天守や櫓の見学、好古園の散策、城下町歩き、書写山圓教寺への足を延ばす旅が人気です。',
+        'Visitors often tour the keep and turrets, stroll through Koko-en Garden, explore the castle town, and add a trip to Engyo-ji on Mount Shosha.',
+        'นักท่องเที่ยวนิยมเข้าชมหอปราสาทและป้อมย่อย เดินเล่นในสวนโคโคเอ็น สำรวจย่านเมืองปราสาท และต่อทริปไปวัดเอ็งเงียวจิบนภูเขาโชฉะ',
+        '常见玩法包括参观天守与櫓、漫步好古园、走访城下町，以及顺道前往书写山圆教寺。'
+      ),
+      local_cuisine: createLocalizedText(
+        '穴子料理、姫路おでん、アーモンドトーストなど、播磨らしい名物が楽しめます。',
+        'Regional favorites include conger eel dishes, Himeji oden, and almond toast, all of which reflect the Harima area food culture.',
+        'เมนูท้องถิ่นที่น่าสนใจ ได้แก่ อาหารปลาอะนะโกะ ฮิเมจิโอเด้ง และขนมปังอัลมอนด์โทสต์ ซึ่งสะท้อนรสชาติแบบฮาริมะ',
+        '可以品尝星鳗料理、姬路关东煮和杏仁吐司等富有播磨地方特色的美食。'
+      ),
+      access: createLocalizedText(
+        '姫路駅は山陽新幹線の停車駅で、駅から城までは徒歩圏内です。アクセスの良さも人気の理由です。',
+        'Himeji Station is served by the Sanyo Shinkansen, and the castle is within walking distance from the station. The easy access adds to its appeal.',
+        'สถานีฮิเมจิเป็นสถานีของซันโยชินคันเซ็น และสามารถเดินจากสถานีไปถึงปราสาทได้ จึงเป็นจุดหมายที่เดินทางสะดวกมาก',
+        '姬路站有山阳新干线停靠，从车站步行即可到达城堡，便利的交通也是其受欢迎的原因之一。'
+      ),
+    },
+  },
+  chugoku: {
+    hiroshima: {
+      history: createLocalizedText(
+        '毛利氏の城下町として始まり、近代には軍都として拡大しました。1945年の原爆投下を経て、現在は平和を発信する都市として世界に知られています。',
+        'Hiroshima began as a castle town of the Mori clan and later expanded as a military city. After the atomic bombing in 1945, it became internationally known as a city devoted to peace.',
+        'ฮิโรชิม่าเริ่มต้นจากการเป็นเมืองปราสาทของตระกูลโมริ ก่อนจะขยายตัวเป็นเมืองทหารในยุคใหม่ หลังการทิ้งระเบิดปรมาณูในปี 1945 เมืองนี้จึงเป็นที่รู้จักทั่วโลกในฐานะเมืองแห่งสันติภาพ',
+        '广岛最初是毛利氏的城下町，近代又发展为军事城市。经历1945年原爆后，如今以向世界传递和平理念的城市而闻名。'
+      ),
+      culture_festivals: createLocalizedText(
+        '5月のひろしまフラワーフェスティバルや、8月の平和記念式典は特に象徴的です。神楽や瀬戸内の港町文化も地域の魅力を支えています。',
+        'The Hiroshima Flower Festival in May and the peace memorial events in August are especially symbolic. Kagura performances and Seto Inland Sea port-town culture add further local character.',
+        'เทศกาลดอกไม้ฮิโรชิม่าในเดือนพฤษภาคมและพิธีรำลึกสันติภาพในเดือนสิงหาคมเป็นงานที่มีความหมายมาก นอกจากนี้การแสดงคางุระและวัฒนธรรมเมืองท่าแห่งทะเลเซโตะในก็ช่วยสร้างเสน่ห์ให้เมือง',
+        '5月的广岛花卉节和8月的和平纪念仪式最具代表性，神乐表演与濑户内港口文化也为这座城市增添魅力。'
+      ),
+      things_to_do: createLocalizedText(
+        '平和記念公園と資料館、原爆ドーム、広島城、縮景園を巡り、宮島への日帰り旅を組み合わせるのが定番です。',
+        'A classic itinerary combines Peace Memorial Park and Museum, the Atomic Bomb Dome, Hiroshima Castle, Shukkei-en Garden, and a day trip to Miyajima.',
+        'ทริปยอดนิยมคือการเที่ยวสวนสันติภาพและพิพิธภัณฑ์ โดมปรมาณู ปราสาทฮิโรชิม่า สวนชุกเคเอ็น และต่อด้วยการไปมิยาจิมะแบบวันเดียว',
+        '经典行程包括和平纪念公园与资料馆、原爆圆顶馆、广岛城、缩景园，再加上宫岛一日游。'
+      ),
+      local_cuisine: createLocalizedText(
+        '広島風お好み焼き、牡蠣、穴子めし、瀬戸内レモンを使ったスイーツなどが人気です。',
+        'Popular local foods include Hiroshima-style okonomiyaki, oysters, anago rice, and sweets made with Setouchi lemons.',
+        'อาหารขึ้นชื่อ ได้แก่ โอโคโนมิยากิสไตล์ฮิโรชิม่า หอยนางรม ข้าวปลาอะนะโกะ และขนมที่ใช้เลมอนเซโตะใน',
+        '人气美食包括广岛风御好烧、牡蛎、星鳗饭以及使用濑户内柠檬制作的甜点。'
+      ),
+      access: createLocalizedText(
+        '広島駅は山陽新幹線の主要駅で、市内移動は路面電車が便利です。宮島へはJRとフェリーで気軽に向かえます。',
+        'Hiroshima Station is a major Sanyo Shinkansen stop, and the tram network is convenient for getting around the city. Miyajima is easily reached by JR and ferry.',
+        'สถานีฮิโรชิม่าถือเป็นสถานีหลักของซันโยชินคันเซ็น และรถรางในเมืองก็ใช้งานสะดวก ส่วนมิยาจิมะสามารถไปต่อได้ง่ายด้วย JR และเรือเฟอร์รี',
+        '广岛站是山阳新干线的重要车站，市内有便利的有轨电车网络，前往宫岛也可轻松搭乘JR和渡轮。'
+      ),
+    },
+    okayama: {
+      history: createLocalizedText(
+        '池田家の城下町として発展し、吉備地方の歴史や桃太郎伝説とも深く結びついています。温暖な気候から「晴れの国」と呼ばれることでも有名です。',
+        'Okayama grew as the castle town of the Ikeda clan and is closely linked to the older history of the Kibi region and the Momotaro legend. It is also known as the Land of Sunshine for its mild weather.',
+        'โอคายามะเติบโตในฐานะเมืองปราสาทของตระกูลอิเคดะ และยังเชื่อมโยงอย่างลึกซึ้งกับประวัติศาสตร์ของแคว้นคิบิและตำนานโมโมทาโร่ อีกทั้งยังมีชื่อเล่นว่า ดินแดนแห่งแสงแดด เพราะอากาศค่อนข้างอบอุ่น',
+        '冈山作为池田家的城下町而发展，也与吉备地区的古老历史及桃太郎传说紧密相连，并因气候温和而被称为“晴天之国”。'
+      ),
+      culture_festivals: createLocalizedText(
+        'おかやま桃太郎まつりが代表的で、踊りやパレードが街を盛り上げます。備前焼など周辺文化とのつながりも強いです。',
+        'The Okayama Momotaro Festival is the signature event, filling the city with parades and dance. The city also maintains strong ties to nearby traditions such as Bizen ware.',
+        'เทศกาลโอคายามะโมโมทาโร่เป็นงานเด่นของเมือง มีทั้งขบวนแห่และการเต้นรำอย่างคึกคัก อีกทั้งเมืองยังมีความเชื่อมโยงกับวัฒนธรรมรอบข้าง เช่น เครื่องปั้นดินเผาบิเซ็น',
+        '冈山桃太郎祭是最具代表性的活动，游行与舞蹈让整座城市充满活力，与备前烧等周边传统文化的联系也很深。'
+      ),
+      things_to_do: createLocalizedText(
+        '後楽園、岡山城、吉備津神社を巡り、倉敷へ足を延ばすコースが人気です。フルーツ狩りやカフェ巡りも楽しめます。',
+        'Popular plans include visiting Korakuen, Okayama Castle, and Kibitsu Shrine, then continuing on to Kurashiki. Fruit picking and cafe hopping are also enjoyable here.',
+        'แผนเที่ยวที่นิยมคือไปสวนโคราคุเอ็น ปราสาทโอคายามะ และศาลเจ้าคิบิสึ ก่อนต่อไปคุราชิกิ นอกจากนี้ยังสนุกกับการเก็บผลไม้และเที่ยวคาเฟ่ได้ด้วย',
+        '热门路线包括游览后乐园、冈山城和吉备津神社，再顺道前往仓敷，也可以体验采摘水果和咖啡馆巡游。'
+      ),
+      local_cuisine: createLocalizedText(
+        'ばら寿司、デミカツ丼、白桃、マスカットなど、海の幸と果物の両方に恵まれています。',
+        'Bara-zushi, demi-katsu don, white peaches, and muscat grapes show how Okayama excels in both savory dishes and fruit.',
+        'มีทั้งบาระซูชิ เดมิคัตสึด้ง ลูกพีชขาว และองุ่นมัสกัต สะท้อนว่าโอคายามะโดดเด่นทั้งอาหารคาวและผลไม้',
+        '散寿司、酱汁炸猪排饭、白桃和麝香葡萄等美食，展现了冈山在料理和水果方面的丰富魅力。'
+      ),
+      access: createLocalizedText(
+        '岡山駅は山陽新幹線の停車駅で、四国方面への玄関口にもなります。市内観光は路面電車とバスが便利です。',
+        'Okayama Station is served by the Sanyo Shinkansen and also works as a gateway toward Shikoku. Trams and buses make city sightseeing straightforward.',
+        'สถานีโอคายามะเป็นสถานีของซันโยชินคันเซ็น และยังเป็นประตูสู่ชิโกกุด้วย การเที่ยวในเมืองสะดวกด้วยรถรางและรถบัส',
+        '冈山站有山阳新干线停靠，也是前往四国的重要门户，市内搭乘路面电车和巴士观光都很方便。'
+      ),
+    },
+    'itsukushima-shrine': {
+      history: createLocalizedText(
+        '平安時代に平清盛の信仰を受けて壮麗な社殿が整えられ、海上に浮かぶような景観で知られるようになりました。島全体が信仰の対象とされています。',
+        'The shrine reached its grand form in the Heian period under the patronage of Taira no Kiyomori and became famous for its overwater appearance. The entire island is regarded as sacred.',
+        'ศาลเจ้าได้รับการสร้างอย่างงดงามในสมัยเฮอันภายใต้การอุปถัมภ์ของไทระ โนะ คิโยโมริ และมีชื่อเสียงจากภาพลักษณ์เหมือนลอยอยู่เหนือน้ำ ทั้งเกาะยังถือเป็นพื้นที่ศักดิ์สิทธิ์ด้วย',
+        '严岛神社在平安时代得到平清盛的庇护而形成壮丽社殿，并因仿佛漂浮于海上的景观而闻名，整座岛屿也被视为神圣之地。'
+      ),
+      culture_festivals: createLocalizedText(
+        '管絃祭をはじめ、神事と海の文化が結びついた行事が多く行われます。満潮と干潮で変わる景色そのものが特別な体験です。',
+        'Rituals such as the Kangen Festival tie shrine tradition to the sea. The way the scenery changes between high and low tide is itself a memorable cultural experience.',
+        'พิธีอย่างคังเก็นไซสะท้อนความเชื่อที่ผูกกับทะเล และทิวทัศน์ที่เปลี่ยนไปตามน้ำขึ้นน้ำลงก็เป็นประสบการณ์ทางวัฒนธรรมที่พิเศษมาก',
+        '管弦祭等活动将神社传统与海洋文化结合在一起，而涨潮与退潮时截然不同的景象本身就是一种特别体验。'
+      ),
+      things_to_do: createLocalizedText(
+        '大鳥居と社殿の参拝、表参道商店街の散策、弥山ロープウェー、鹿との出会い、干潮時の鳥居までの散歩が人気です。',
+        'Popular activities include visiting the torii and shrine buildings, strolling Omotesando shopping street, riding the ropeway to Mount Misen, meeting the island deer, and walking to the torii at low tide.',
+        'กิจกรรมยอดนิยมคือสักการะโทริอิและตัวศาลเจ้า เดินเล่นถนนช้อปปิ้งโอโมเตะซันโด ขึ้นกระเช้าไปภูเขามิเซ็น พบกวางบนเกาะ และเดินไปใกล้โทริอิในช่วงน้ำลง',
+        '热门活动包括参拜大鸟居与社殿、漫步表参道商店街、乘缆车前往弥山、与岛上鹿群相遇，以及在退潮时步行接近鸟居。'
+      ),
+      local_cuisine: createLocalizedText(
+        '焼き牡蠣、穴子めし、もみじ饅頭が定番で、参道の食べ歩きも楽しいです。',
+        'Grilled oysters, anago rice, and momiji manju are the classic local treats, and sampling snacks along the approach is part of the fun.',
+        'ของกินขึ้นชื่อคือหอยนางรมย่าง ข้าวปลาอะนะโกะ และโมมิจิมันจู การเดินชิมของตามทางก็สนุกมาก',
+        '经典美食有烤牡蛎、星鳗饭和枫叶馒头，边逛参道边品尝小吃也是乐趣之一。'
+      ),
+      access: createLocalizedText(
+        '広島駅から宮島口までJRで向かい、そこからフェリーで渡るのが一般的です。島内は徒歩中心でゆっくり巡れます。',
+        'Most visitors take JR from Hiroshima to Miyajimaguchi and then continue by ferry. Once on the island, it is best explored slowly on foot.',
+        'โดยทั่วไปจะนั่ง JR จากฮิโรชิม่าไปมิยาจิมะกุจิแล้วต่อเรือเฟอร์รี เมื่อถึงเกาะแล้วเหมาะกับการเดินเที่ยวแบบสบาย ๆ',
+        '通常从广岛站搭乘JR到宫岛口，再换乘渡轮上岛。岛上以步行为主，适合慢慢游览。'
+      ),
+    },
+    kurashiki: {
+      history: createLocalizedText(
+        '江戸時代には物資の集積地として栄え、白壁の蔵や運河沿いの町並みが形成されました。明治以降は紡績業でも発展しています。',
+        'Kurashiki prospered as a center for goods distribution in the Edo period, creating the canal-side district lined with white storehouses. It later grew further through the textile industry.',
+        'คุราชิกิเคยรุ่งเรืองในสมัยเอโดะในฐานะศูนย์กลางกระจายสินค้า จึงเกิดย่านคลองและโกดังผนังขาวที่เป็นเอกลักษณ์ ต่อมาเมืองยังเติบโตจากอุตสาหกรรมสิ่งทอในยุคเมจิ',
+        '仓敷在江户时代曾作为物资集散地而繁荣，形成了沿运河排列白墙仓库的街景，明治以后又因纺织业而进一步发展。'
+      ),
+      culture_festivals: createLocalizedText(
+        '美観地区では季節ごとの催しやライトアップが行われ、民藝やデニム文化にも触れられます。落ち着いた街歩きが似合う場所です。',
+        'Seasonal events and illuminations are held in the Bikan quarter, and visitors can also encounter folk crafts and local denim culture. It is a city best enjoyed at a relaxed pace.',
+        'ย่านบิคังมีงานตามฤดูกาลและการประดับไฟ รวมทั้งยังได้สัมผัสงานหัตถกรรมพื้นบ้านและวัฒนธรรมเดนิมของเมือง เป็นสถานที่ที่เหมาะกับการเดินเที่ยวแบบสบาย ๆ',
+        '美观地区会举办季节活动与夜间点灯，也能接触民艺和牛仔布文化，是一座适合悠闲漫步的城市。'
+      ),
+      things_to_do: createLocalizedText(
+        '運河沿いの散策、川舟体験、大原美術館、倉敷アイビースクエア、デニムストリート巡りがおすすめです。',
+        'Recommended activities include walking the canal district, taking a river boat ride, visiting the Ohara Museum of Art, exploring Kurashiki Ivy Square, and shopping along Denim Street.',
+        'แนะนำให้เดินเล่นริมคลอง ล่องเรือชมเมือง แวะพิพิธภัณฑ์ศิลปะโอฮาระ สำรวจ Kurashiki Ivy Square และเดินย่านเดนิมสตรีท',
+        '推荐活动包括漫步运河地区、乘船游河、参观大原美术馆、探索仓敷常春藤广场以及逛牛仔街。'
+      ),
+      local_cuisine: createLocalizedText(
+        'ままかり寿司、フルーツパフェ、瀬戸内の魚介などが人気で、カフェ文化も充実しています。',
+        'Mamakari sushi, fruit parfaits, and Setouchi seafood are popular, and the local cafe scene is also strong.',
+        'เมนูยอดนิยมมีทั้งมามาคาริซูชิ พาร์เฟต์ผลไม้ และอาหารทะเลจากเซโตะใน อีกทั้งวัฒนธรรมคาเฟ่ของเมืองก็โดดเด่น',
+        '受欢迎的美食有青花鱼寿司、水果芭菲和濑户内海海鲜，当地咖啡馆文化也相当发达。'
+      ),
+      access: createLocalizedText(
+        '岡山駅からJRで短時間で到着し、美観地区は倉敷駅から徒歩圏内です。日帰りでも訪れやすい街です。',
+        'Kurashiki is a short JR ride from Okayama, and the Bikan quarter is within walking distance of Kurashiki Station. It is easy to visit even on a day trip.',
+        'คุราชิกิอยู่ห่างจากโอคายามะเพียงนั่ง JR ไม่นาน และย่านบิคังก็เดินจากสถานีคุราชิกิได้ จึงเหมาะกับการเที่ยวแบบวันเดียว',
+        '从冈山搭乘JR很快就能到达仓敷，美观地区也在仓敷站步行范围内，非常适合一日游。'
+      ),
+    },
+  },
+  shikoku: {
+    takamatsu: {
+      history: createLocalizedText(
+        '讃岐国の城下町として発展し、瀬戸内海の港町としても重要な役割を果たしてきました。現在はアートの島々への玄関口でもあります。',
+        'Takamatsu developed as the castle town of Sanuki Province and played an important role as a port on the Seto Inland Sea. Today it also serves as a gateway to the art islands.',
+        'ทาคามัตสึเติบโตในฐานะเมืองปราสาทของแคว้นซานุกิ และมีบทบาทสำคัญในฐานะเมืองท่าแห่งทะเลเซโตะใน ปัจจุบันยังเป็นประตูสู่หมู่เกาะศิลปะอีกด้วย',
+        '高松曾作为赞岐国的城下町而发展，也一直是濑户内海的重要港口，如今还是前往艺术岛屿的重要门户。'
+      ),
+      culture_festivals: createLocalizedText(
+        '高松まつりや瀬戸内国際芸術祭の影響で、伝統と現代アートが自然に交わる空気があります。漆器などの工芸も地域文化の一部です。',
+        'With the Takamatsu Festival and the wider influence of the Setouchi Triennale, tradition and contemporary art mix naturally here. Crafts such as lacquerware are also part of local culture.',
+        'จากเทศกาลทาคามัตสึและอิทธิพลของเทศกาลศิลปะเซโตะอุจิ ทำให้เมืองนี้ผสานประเพณีกับศิลปะร่วมสมัยได้อย่างเป็นธรรมชาติ งานฝีมืออย่างเครื่องเขินก็เป็นส่วนหนึ่งของวัฒนธรรมท้องถิ่น',
+        '受高松祭和濑户内国际艺术祭影响，这里自然融合了传统与当代艺术，漆器等工艺也是地方文化的一部分。'
+      ),
+      things_to_do: createLocalizedText(
+        '栗林公園、玉藻公園、高松港からの島旅、屋島展望台、商店街散策がおすすめです。',
+        'Highlights include Ritsurin Garden, Tamamo Park, island trips from Takamatsu Port, the Yashima viewpoint, and strolls through the shopping arcades.',
+        'ไฮไลต์คือสวนริทสึริน สวนทามาโมะ การนั่งเรือเที่ยวเกาะจากท่าเรือทาคามัตสึ จุดชมวิวยาชิมะ และการเดินเล่นย่านช้อปปิ้ง',
+        '推荐景点包括栗林公园、玉藻公园、从高松港出发的岛屿之旅、屋岛展望台以及商店街漫步。'
+      ),
+      local_cuisine: createLocalizedText(
+        '讃岐うどんが圧倒的に有名で、骨付鳥やオリーブ牛など香川らしい名物も楽しめます。',
+        'Sanuki udon is the undisputed star, but Kagawa specialties such as bone-in chicken and olive-fed beef are also worth trying.',
+        'ซานุกิอุด้งคือของขึ้นชื่ออันดับหนึ่ง แต่ก็ยังมีเมนูท้องถิ่นของคางาวะอย่างไก่ติดกระดูกและเนื้อโอลีฟให้ลองด้วย',
+        '赞岐乌冬面最为有名，另外也可品尝带骨鸡和橄榄牛等香川特色美食。'
+      ),
+      access: createLocalizedText(
+        '岡山からマリンライナーで約1時間。高松空港やフェリー網もあり、四国観光の起点に向いています。',
+        'It takes about an hour from Okayama on the Marine Liner, and the city also has an airport and ferry links, making it a practical base for Shikoku travel.',
+        'จากโอคายามะนั่ง Marine Liner ประมาณ 1 ชั่วโมง เมืองยังมีสนามบินและเครือข่ายเรือเฟอร์รี จึงเหมาะเป็นฐานเที่ยวชิโกกุ',
+        '从冈山搭乘Marine Liner约1小时即可到达，高松还有机场和渡轮网络，是游览四国的理想据点。'
+      ),
+    },
+    matsuyama: {
+      history: createLocalizedText(
+        '松山城の城下町として発展し、道後温泉を中心とした湯治文化でも知られます。正岡子規や夏目漱石ゆかりの文学の町でもあります。',
+        'Matsuyama developed as the castle town of Matsuyama Castle and is also famous for hot spring culture centered on Dogo Onsen. It is deeply tied to writers such as Masaoka Shiki and Natsume Soseki.',
+        'มัตสึยามะเติบโตในฐานะเมืองปราสาทของปราสาทมัตสึยามะ และยังเป็นที่รู้จักจากวัฒนธรรมการแช่ออนเซ็นรอบโดโงะออนเซ็น เมืองนี้ยังเกี่ยวข้องกับนักเขียนอย่างมาซาโอกะ ชิกิ และนัตสึเมะ โซเซกิอย่างลึกซึ้ง',
+        '松山作为松山城的城下町而发展，也因以道后温泉为中心的温泉文化而闻名，同时还是与正冈子规、夏目漱石等作家渊源深厚的文学之城。'
+      ),
+      culture_festivals: createLocalizedText(
+        '松山まつりや道後温泉まつりが人気で、俳句や文学散歩もこの街ならではの楽しみ方です。',
+        'Matsuyama Festival and Dogo Onsen events are popular, while haiku-themed walks and literary sites offer a cultural experience unique to the city.',
+        'เทศกาลมัตสึยามะและงานต่าง ๆ ของโดโงะออนเซ็นได้รับความนิยมมาก ขณะเดียวกันการเดินตามรอยวรรณกรรมและไฮกุก็เป็นเสน่ห์เฉพาะของเมืองนี้',
+        '松山祭和道后温泉相关活动很受欢迎，而俳句漫步与文学景点则提供了这座城市独有的文化体验。'
+      ),
+      things_to_do: createLocalizedText(
+        '道後温泉本館、松山城、ロープウェイ街、石手寺、坂の上の雲ミュージアムなどを巡るのがおすすめです。',
+        'Recommended stops include Dogo Onsen Honkan, Matsuyama Castle, Ropeway Street, Ishite-ji Temple, and the Saka no Ue no Kumo Museum.',
+        'สถานที่แนะนำ ได้แก่ อาคารหลักโดโงะออนเซ็น ปราสาทมัตสึยามะ Ropeway Street วัดอิชิเตะจิ และพิพิธภัณฑ์ Saka no Ue no Kumo',
+        '推荐游览道后温泉本馆、松山城、缆车商店街、石手寺以及《坂上之云》博物馆。'
+      ),
+      local_cuisine: createLocalizedText(
+        '鯛めし、じゃこ天、柑橘スイーツなど愛媛らしい味が豊富で、温泉街の食べ歩きも楽しいです。',
+        'Ehime flavors such as tai-meshi, jakoten fish cakes, and citrus sweets are abundant, and the hot spring district is fun for casual snacking.',
+        'มีรสชาติแบบเอฮิเมะมากมาย เช่น ข้าวปลาไท จาโกะเท็น และขนมส้มต่าง ๆ การเดินชิมของในย่านออนเซ็นก็สนุกเช่นกัน',
+        '这里有丰富的爱媛风味，如鲷鱼饭、小鱼天妇罗和柑橘甜点，温泉街边走边吃也很有趣。'
+      ),
+      access: createLocalizedText(
+        '松山空港やJR予讃線、広島・呉方面からのフェリーでアクセスできます。市内は路面電車が便利です。',
+        'Matsuyama can be reached by air, by JR Yosan Line, or by ferry from the Hiroshima and Kure side. The city tram is convenient for local travel.',
+        'สามารถเดินทางถึงมัตสึยามะได้ทั้งทางอากาศ รถไฟ JR Yosan Line หรือเรือเฟอร์รีจากฝั่งฮิโรชิม่าและคุเระ ภายในเมืองใช้รถรางได้สะดวก',
+        '可通过飞机、JR予赞线或从广岛和吴方向搭乘渡轮到达松山，市内则有方便的有轨电车。'
+      ),
+    },
+    'naruto-whirlpools': {
+      history: createLocalizedText(
+        '鳴門海峡の潮流が生み出す自然現象で、古くから航海者や旅人の注目を集めてきました。地域観光を象徴する存在でもあります。',
+        'These whirlpools are a natural phenomenon created by the powerful tides of the Naruto Strait and have fascinated sailors and travelers for centuries. They are now a symbol of local tourism.',
+        'น้ำวนนารูโตะเป็นปรากฏการณ์ธรรมชาติที่เกิดจากกระแสน้ำแรงในช่องแคบนารูโตะ และดึงดูดความสนใจของนักเดินเรือและนักเดินทางมานานหลายศตวรรษ ปัจจุบันยังเป็นสัญลักษณ์การท่องเที่ยวของพื้นที่ด้วย',
+        '鸣门漩涡是由鸣门海峡强劲潮流形成的自然现象，数百年来一直吸引着航海者和旅行者，如今已成为当地旅游象征。'
+      ),
+      culture_festivals: createLocalizedText(
+        '自然の迫力を生かした観光文化が発達しており、近隣では阿波おどり文化や徳島の伝統芸能にも触れられます。',
+        'The area has built a tourism culture around the drama of nature, and nearby visitors can also experience Awa Odori traditions and Tokushima performing arts.',
+        'พื้นที่นี้พัฒนาวัฒนธรรมการท่องเที่ยวจากพลังอันยิ่งใหญ่ของธรรมชาติ และในบริเวณใกล้เคียงยังได้สัมผัสวัฒนธรรมอาวะโอโดริและศิลปะการแสดงของโทคุชิมะด้วย',
+        '这里围绕大自然的震撼景观发展出观光文化，附近还能体验阿波舞与德岛传统艺能。'
+      ),
+      things_to_do: createLocalizedText(
+        '観潮船に乗る、渦の道から見下ろす、大鳴門橋周辺を散策する、大塚国際美術館に立ち寄るなどが定番です。',
+        'Typical activities include taking a sightseeing boat, viewing the whirlpools from the Uzunomichi walkway, exploring around the Onaruto Bridge, and visiting the Otsuka Museum of Art.',
+        'กิจกรรมยอดนิยมคือขึ้นเรือชมกระแสน้ำ มองลงจากทางเดิน Uzu no Michi เดินเที่ยวรอบสะพานโอนารูโตะ และแวะพิพิธภัณฑ์ศิลปะโอสึกะ',
+        '经典玩法包括搭乘观潮船、从涡之道步道俯瞰漩涡、漫步大鸣门桥周边，以及参观大塚国际美术馆。'
+      ),
+      local_cuisine: createLocalizedText(
+        '鳴門わかめ、鳴門金時、鯛料理、徳島ラーメンなど、海と農産物の両方が楽しめます。',
+        'Naruto wakame seaweed, Naruto kintoki sweet potatoes, sea bream dishes, and Tokushima ramen highlight both the sea and farm produce of the area.',
+        'สามารถลิ้มลองทั้งวากาเมะนารูโตะ มันหวานนารูโตะคินโทกิ เมนูปลาไท และโทคุชิมะราเม็ง ซึ่งสะท้อนทั้งผลผลิตทะเลและการเกษตรของพื้นที่',
+        '这里既能品尝鸣门裙带菜、鸣门金时红薯、鲷鱼料理，也有德岛拉面等兼具海产与农产特色的美食。'
+      ),
+      access: createLocalizedText(
+        '徳島市内や神戸方面からバスや車で向かうのが一般的です。渦潮は潮の時間によって見え方が変わるため、事前確認がおすすめです。',
+        'Most visitors come by car or bus from Tokushima City or the Kobe area. Because the whirlpools vary with the tide, it is best to check viewing times in advance.',
+        'โดยทั่วไปนิยมเดินทางด้วยรถยนต์หรือรถบัสจากเมืองโทคุชิมะหรือฝั่งโกเบ และเนื่องจากน้ำวนเปลี่ยนไปตามช่วงน้ำขึ้นน้ำลง จึงควรตรวจเวลาล่วงหน้า',
+        '通常可从德岛市区或神户方向搭乘巴士或自驾前往。由于漩涡景观会随潮汐变化，建议事先确认最佳观赏时间。'
+      ),
+    },
+    'kotohira-gu': {
+      history: createLocalizedText(
+        '古くから海の守り神として信仰を集め、江戸時代には全国から多くの参拝者が訪れました。金刀比羅参りは庶民の憧れの旅でもありました。',
+        'Kotohira-gu has long been revered as a shrine for maritime protection, and in the Edo period many pilgrims traveled from across Japan to visit it. A Konpira pilgrimage was once a dream journey for ordinary people.',
+        'ศาลเจ้าโคโตฮิระกุได้รับความศรัทธามาอย่างยาวนานในฐานะผู้คุ้มครองการเดินเรือ และในสมัยเอโดะมีผู้แสวงบุญจากทั่วญี่ปุ่นเดินทางมาสักการะ การไปคมปิระยังเคยเป็นทริปในฝันของผู้คนทั่วไปอีกด้วย',
+        '金刀比罗宫自古就作为海上守护神而受到信仰，江户时代有许多参拜者从全国各地前来，“参拜金毗罗”曾是平民向往的旅行。'
+      ),
+      culture_festivals: createLocalizedText(
+        '表参道の門前町文化や祭礼、周辺の芝居小屋「金丸座」と合わせて、信仰と娯楽が結びついた独特の文化圏を感じられます。',
+        'The shrine approach, seasonal rituals, and nearby Kanamaru-za theater reveal a culture where faith and entertainment have long been closely linked.',
+        'ทั้งบรรยากาศเมืองหน้าศาลเจ้าตามทางขึ้น พิธีตามฤดูกาล และโรงละครคานามารุซะใกล้เคียง ล้วนสะท้อนวัฒนธรรมที่ศรัทธาและความบันเทิงเชื่อมโยงกันอย่างแนบแน่น',
+        '从表参道门前町、季节祭礼到附近的金丸座戏楼，都能感受到信仰与娱乐长期交织形成的独特文化。'
+      ),
+      things_to_do: createLocalizedText(
+        '石段を登って本宮を参拝し、門前町を歩き、展望を楽しみ、時間があれば奥社や金丸座まで巡るのがおすすめです。',
+        'The classic experience is to climb the stone steps to the main shrine, stroll the approach, enjoy the views, and, if time allows, continue to the inner shrine or Kanamaru-za theater.',
+        'ประสบการณ์หลักคือการขึ้นบันไดหินไปยังศาลเจ้าหลัก เดินเล่นย่านหน้าศาลเจ้า ชมวิว และถ้ามีเวลาอาจไปต่อถึงโอคุฉะหรือโรงละครคานามารุซะ',
+        '经典体验是沿石阶登上本宫参拜，漫步门前町、欣赏景色，若时间充裕还可继续前往奥社或金丸座。'
+      ),
+      local_cuisine: createLocalizedText(
+        '参拝後は讃岐うどんや和三盆菓子を楽しむ人が多く、門前町ならではの食べ歩きも人気です。',
+        'Many visitors enjoy Sanuki udon and wasanbon sweets after their climb, and the shrine town is pleasant for casual snacking.',
+        'หลังขึ้นบันไดแล้วนักท่องเที่ยวจำนวนมากนิยมกินซานุกิอุด้งและขนมวาซังบง โดยย่านหน้าศาลเจ้าก็เหมาะกับการเดินชิมของกิน',
+        '参拜后很多人会品尝赞岐乌冬面和和三盆甜点，门前町也很适合边走边吃。'
+      ),
+      access: createLocalizedText(
+        'JR琴平駅やことでん琴平駅から徒歩で参道へ向かえます。石段が多いため、歩きやすい服装で訪れるのがおすすめです。',
+        'The approach can be reached on foot from JR Kotohira Station or Kotoden Kotohira Station. Because of the many stone steps, comfortable shoes are recommended.',
+        'สามารถเดินจากสถานี JR Kotohira หรือสถานี Kotoden Kotohira มายังทางขึ้นได้ เนื่องจากมีบันไดหินจำนวนมาก จึงควรแต่งตัวและใส่รองเท้าที่เดินสะดวก',
+        '从JR琴平站或琴电琴平站步行即可到达参道。由于石阶很多，建议穿着便于行走的鞋服。'
+      ),
+    },
+  },
+  kyushu: {
+    fukuoka: {
+      history: createLocalizedText(
+        '博多の商人町と福岡城下町が近代に一体化して現在の都市になりました。古くからアジアとの交流が盛んで、港町として発展してきた歴史があります。',
+        'Modern Fukuoka emerged from the merger of the merchant town of Hakata and the castle town of Fukuoka. It has long prospered as a port city with deep ties to the rest of Asia.',
+        'ฟุกุโอกะในปัจจุบันเกิดจากการรวมตัวของย่านพ่อค้าฮากาตะและเมืองปราสาทฟุกุโอกะ เมืองนี้รุ่งเรืองมาอย่างยาวนานในฐานะเมืองท่าที่เชื่อมโยงกับเอเชีย',
+        '现代福冈由商人城市博多与福冈城下町融合而成，长期作为与亚洲交流密切的港口城市而发展。'
+      ),
+      culture_festivals: createLocalizedText(
+        '博多祇園山笠と博多どんたくは二大名物で、街全体が祭りに包まれます。屋台文化も福岡の夜を代表する風景です。',
+        'Hakata Gion Yamakasa and Hakata Dontaku are the two most famous festivals, and both fill the city with energy. The yatai street food scene is another defining feature of Fukuoka nights.',
+        'ฮากาตะกิองยามากาสะและฮากาตะดนตะกุคือสองเทศกาลใหญ่ที่ทำให้ทั้งเมืองคึกคัก ส่วนวัฒนธรรมยาไตก็เป็นภาพจำของยามค่ำคืนในฟุกุโอกะ',
+        '博多祇园山笠和博多咚打鼓是最具代表性的两大祭典，而屋台文化则是福冈夜晚最鲜明的风景之一。'
+      ),
+      things_to_do: createLocalizedText(
+        '大濠公園、福岡城跡、キャナルシティ、福岡タワー、中洲の屋台巡り、太宰府への小旅行などが人気です。',
+        'Popular activities include visiting Ohori Park, the Fukuoka Castle ruins, Canal City, Fukuoka Tower, yatai stalls in Nakasu, and a side trip to Dazaifu.',
+        'กิจกรรมยอดนิยม ได้แก่ สวนโอฮอริ ซากปราสาทฟุกุโอกะ คาแนลซิตี้ ฟุกุโอกะทาวเวอร์ การตระเวนยาไตที่นากาสุ และทริปสั้นไปดาไซฟุ',
+        '热门活动包括游览大濠公园、福冈城遗址、运河城、福冈塔、在中洲逛屋台，以及前往太宰府短途旅行。'
+      ),
+      local_cuisine: createLocalizedText(
+        '博多ラーメン、もつ鍋、水炊き、明太子、ごまさばなど、旅の目的になる名物が豊富です。',
+        'Hakata ramen, motsunabe, mizutaki, mentaiko, and goma-saba make Fukuoka one of the most rewarding food cities in Japan.',
+        'ฮากาตะราเม็ง โมตสึนาเบะ มิซุทากิ เมนไทโกะ และโกมะซาบะ คือของกินเด่นที่ทำให้ฟุกุโอกะเป็นเมืองอาหารชั้นยอดของญี่ปุ่น',
+        '博多拉面、内脏锅、水炊鸡锅、明太子和芝麻青花鱼等名物，让福冈成为日本最值得专程为美食而来的城市之一。'
+      ),
+      access: createLocalizedText(
+        '福岡空港が市中心部に近く、博多駅は新幹線と在来線の要所です。市内は地下鉄やバスで移動しやすいです。',
+        'Fukuoka Airport is unusually close to the city center, and Hakata Station is a major hub for both Shinkansen and local rail. The subway and bus network is easy to use.',
+        'สนามบินฟุกุโอกะอยู่ใกล้ใจกลางเมืองมาก และสถานีฮากาตะก็เป็นศูนย์กลางของทั้งชินคันเซ็นและรถไฟทั่วไป ภายในเมืองใช้รถไฟใต้ดินและรถบัสได้ง่าย',
+        '福冈机场距离市中心非常近，博多站也是新干线与在来线的重要枢纽，市内搭乘地铁和巴士十分方便。'
+      ),
+    },
+    beppu: {
+      history: createLocalizedText(
+        '古くから湯治場として親しまれ、近代には温泉観光都市として全国的に知られるようになりました。泉源数と湧出量の多さでも有名です。',
+        'Beppu has long been loved as a therapeutic hot spring town and became nationally famous as a spa destination in modern times. It is also known for its huge number of hot spring sources and large water output.',
+        'เบปปุเป็นเมืองออนเซ็นเพื่อการพักฟื้นที่ผู้คนคุ้นเคยมานาน และในยุคใหม่ก็กลายเป็นเมืองท่องเที่ยวออนเซ็นที่มีชื่อเสียงทั่วประเทศ อีกทั้งยังโดดเด่นเรื่องจำนวนบ่อน้ำพุร้อนและปริมาณน้ำที่ผุดขึ้น',
+        '别府自古就是著名疗养温泉地，近代以后更发展为全国知名的温泉观光城市，也以泉源数量和涌出量之多而闻名。'
+      ),
+      culture_festivals: createLocalizedText(
+        '別府八湯温泉まつりなど、温泉を中心とした催しが多く、湯の町ならではの暮らしを感じられます。',
+        'Events such as the Beppu Hot Spring Festival revolve around the city thermal culture, letting visitors feel what life in a hot spring town is really like.',
+        'งานอย่างเทศกาลออนเซ็นเบปปุสะท้อนวัฒนธรรมเมืองน้ำพุร้อนอย่างชัดเจน ทำให้นักท่องเที่ยวสัมผัสวิถีชีวิตของเมืองออนเซ็นได้จริง',
+        '别府温泉祭等活动围绕温泉文化展开，让人能真实感受到这座温泉之城的生活气息。'
+      ),
+      things_to_do: createLocalizedText(
+        '地獄めぐり、砂湯や蒸し湯体験、湯けむり景観の散策、ロープウェイで鶴見岳へ登る旅が人気です。',
+        'Popular experiences include the Hells of Beppu, sand baths, steam baths, walking through districts full of rising steam, and riding the ropeway up Mount Tsurumi.',
+        'กิจกรรมยอดนิยมคือเที่ยวชมนรกแห่งเบปปุ ลองอาบทรายและห้องอบไอน้ำ เดินชมย่านที่มีไอร้อนลอยขึ้นทั่วเมือง และขึ้นกระเช้าไปภูเขาสึรุมิ',
+        '热门体验包括别府地狱巡游、沙浴与蒸汽浴、漫步蒸汽缭绕的温泉街，以及乘缆车登上鹤见岳。'
+      ),
+      local_cuisine: createLocalizedText(
+        '地獄蒸し料理、とり天、だんご汁など大分らしい味が楽しめます。温泉熱を生かした調理法も名物です。',
+        'Local favorites include jigoku-mushi steam cooking, toriten chicken tempura, and dango soup. Using geothermal steam in cooking is itself a signature of Beppu.',
+        'เมนูท้องถิ่นที่ควรลอง ได้แก่ อาหารนึ่งด้วยไอน้ำร้อนจิโกกุมุชิ ไก่เทมปุระโทริเท็น และซุปดังโงะ วิธีทำอาหารด้วยไอน้ำจากออนเซ็นก็เป็นเอกลักษณ์ของเบปปุด้วย',
+        '当地美食有地狱蒸、鸡肉天妇罗和团子汤等，利用温泉蒸汽烹饪本身就是别府的一大特色。'
+      ),
+      access: createLocalizedText(
+        '大分空港からバスでアクセスでき、JR別府駅から各温泉地へ向かいやすいです。市内バスを使うと地獄めぐりも便利です。',
+        'Beppu is reachable from Oita Airport by bus, and JR Beppu Station is a good base for local hot spring areas. City buses are useful for touring the Hells.',
+        'สามารถเดินทางจากสนามบินโออิตะด้วยรถบัส และใช้สถานี JR Beppu เป็นฐานไปยังย่านออนเซ็นต่าง ๆ ได้สะดวก การนั่งรถบัสในเมืองก็เหมาะกับการเที่ยวจิโกกุเมงุริ',
+        '可从大分机场搭乘巴士前往别府，以JR别府站为据点前往各温泉区很方便，市内巴士也适合地狱巡游。'
+      ),
+    },
+    yakushima: {
+      history: createLocalizedText(
+        '古くから屋久杉の島として知られ、林業の歴史と保護の歴史が共存しています。1993年には世界自然遺産に登録されました。',
+        'Yakushima has long been known for its ancient cedar forests, with a history shaped by both logging and conservation. In 1993 it was listed as a World Natural Heritage site.',
+        'ยาคุชิมะเป็นที่รู้จักมายาวนานในฐานะเกาะแห่งต้นยากุสึกิ และมีทั้งประวัติการทำป่าไม้ควบคู่กับการอนุรักษ์ ในปี 1993 เกาะนี้ได้รับการขึ้นทะเบียนเป็นมรดกโลกทางธรรมชาติ',
+        '屋久岛自古以古老屋久杉闻名，既有林业历史，也有保护自然的历程，并于1993年被列入世界自然遗产。'
+      ),
+      culture_festivals: createLocalizedText(
+        '山岳信仰や自然への敬意が強く、島の暮らしそのものに独特の文化があります。ガイド文化が発達しているのも特徴です。',
+        'Mountain worship and respect for nature run deep here, giving island life a distinct culture. A strong guiding tradition is also part of the Yakushima experience.',
+        'ความเชื่อเกี่ยวกับภูเขาและความเคารพต่อธรรมชาติมีรากลึก ทำให้วิถีชีวิตบนเกาะมีเอกลักษณ์เฉพาะ อีกทั้งวัฒนธรรมไกด์นำทางก็พัฒนาอย่างมาก',
+        '这里深受山岳信仰与敬畏自然的影响，岛上生活形成了独特文化，完善的向导文化也是其特点之一。'
+      ),
+      things_to_do: createLocalizedText(
+        '白谷雲水峡や縄文杉トレッキング、滝巡り、西部林道の自然観察、海岸沿いのドライブが人気です。',
+        'Popular activities include hiking in Shiratani Unsuikyo, trekking to Jomon Sugi, visiting waterfalls, observing wildlife along Seibu Rindo, and driving the coast road.',
+        'กิจกรรมยอดนิยมคือเดินป่าที่ชิราทานิอุนซุยเคียว เทรกกิงไปโจมงสึงิ เที่ยวน้ำตก สังเกตธรรมชาติบนถนนเซบุรินโด และขับรถเลียบชายฝั่ง',
+        '热门活动包括游览白谷云水峡、徒步前往绳文杉、走访瀑布、在西部林道观察自然，以及沿海自驾。'
+      ),
+      local_cuisine: createLocalizedText(
+        '首折れサバ、トビウオ料理、たんかんなどの柑橘が名物です。山と海の恵みを両方味わえます。',
+        'Local specialties include mackerel, flying fish dishes, and citrus such as tankan, giving visitors both mountain and ocean flavors.',
+        'ของขึ้นชื่อมีทั้งปลาซาบะ เมนูปลาบิน และผลไม้รสเปรี้ยวอย่างทังคัง ทำให้ได้ลิ้มรสทั้งจากภูเขาและทะเล',
+        '当地特产有青花鱼、飞鱼料理以及椪柑等柑橘类水果，能同时品尝山海之味。'
+      ),
+      access: createLocalizedText(
+        '鹿児島から高速船やフェリー、飛行機でアクセスできます。天候で欠航することもあるため、余裕ある日程が安心です。',
+        'Yakushima can be reached from Kagoshima by high-speed boat, ferry, or plane. Because weather can cause cancellations, a flexible schedule is wise.',
+        'เดินทางจากคาโกชิมะได้ทั้งเรือความเร็วสูง เรือเฟอร์รี และเครื่องบิน แต่สภาพอากาศอาจทำให้การเดินทางยกเลิกได้ จึงควรเผื่อเวลาไว้',
+        '可从鹿儿岛搭乘高速船、渡轮或飞机前往屋久岛，但天气可能导致停航或停飞，行程最好留有余地。'
+      ),
+    },
+    nagasaki: {
+      history: createLocalizedText(
+        '江戸時代には出島を通じた海外交流の窓口として発展し、キリスト教や西洋文化の痕跡が今も残ります。原爆被災地としての平和の記憶も大切にされています。',
+        'During the Edo period, Nagasaki prospered as Japan rare window to the outside world through Dejima, and traces of Christianity and Western influence remain. The memory of the atomic bombing is also central to the city identity.',
+        'ในสมัยเอโดะ นางาซากิรุ่งเรืองจากการเป็นหน้าต่างสู่โลกภายนอกผ่านเดจิมะ และร่องรอยของคริสต์ศาสนากับวัฒนธรรมตะวันตกยังคงอยู่จนทุกวันนี้ ความทรงจำเกี่ยวกับระเบิดปรมาณูก็เป็นส่วนสำคัญของอัตลักษณ์เมือง',
+        '江户时代的长崎通过出岛成为日本少数对外交流的窗口，基督教与西方文化的痕迹至今仍在，而原爆记忆也是这座城市身份的重要组成部分。'
+      ),
+      culture_festivals: createLocalizedText(
+        '長崎くんちや長崎ランタンフェスティバルは国際色豊かな雰囲気で有名です。和華蘭文化と呼ばれる独自の混交文化も魅力です。',
+        'Nagasaki Kunchi and the Nagasaki Lantern Festival are famous for their international atmosphere. The city unique blend of Japanese, Chinese, and Western influences is often called Wakaran culture.',
+        'นางาซากิคุนจิและเทศกาลโคมไฟนางาซากิมีชื่อเสียงจากบรรยากาศนานาชาติ อีกเสน่ห์คือวัฒนธรรมผสมผสานแบบญี่ปุ่น จีน และตะวันตกที่เรียกว่า Wakaran',
+        '长崎宫日节和长崎灯会以浓厚的国际氛围闻名，而融合和风、中华与西洋元素的“和华兰文化”也是城市魅力所在。'
+      ),
+      things_to_do: createLocalizedText(
+        '平和公園、原爆資料館、出島、グラバー園、大浦天主堂、稲佐山の夜景など見どころが多彩です。',
+        'The city offers a wide range of sights, including Peace Park, the Atomic Bomb Museum, Dejima, Glover Garden, Oura Church, and the night view from Mount Inasa.',
+        'เมืองนี้มีจุดน่าเที่ยวหลากหลาย ทั้งสวนสันติภาพ พิพิธภัณฑ์ระเบิดปรมาณู เดจิมะ สวนโกลเวอร์ โบสถ์โออุระ และวิวกลางคืนจากภูเขาอินาสะ',
+        '这里景点丰富，包括和平公园、原爆资料馆、出岛、格洛弗园、大浦天主堂以及稻佐山夜景。'
+      ),
+      local_cuisine: createLocalizedText(
+        'ちゃんぽん、皿うどん、カステラ、トルコライスなど、異文化交流から生まれた名物が豊富です。',
+        'Champon, sara udon, castella cake, and Turkish rice show how Nagasaki cuisine grew from intercultural exchange.',
+        'มีอาหารเด่นอย่างจัมปง ซาระอุด้ง คาสเทลลา และตุรกีไรซ์ ซึ่งสะท้อนการผสมผสานวัฒนธรรมของนางาซากิ',
+        '长崎什锦面、皿乌冬、蛋糕卡斯提拉和土耳其饭等名物，都体现了这里因文化交流而形成的饮食特色。'
+      ),
+      access: createLocalizedText(
+        '博多から特急列車や西九州新幹線経由でアクセスでき、市内は路面電車が便利です。長崎空港からのバス便もあります。',
+        'Nagasaki is accessible from Hakata by limited express and Nishi-Kyushu Shinkansen connections, and the tram system is useful within the city. Buses also connect from Nagasaki Airport.',
+        'สามารถเดินทางจากฮากาตะด้วยรถไฟด่วนหรือเชื่อมต่อกับนิชิคิวชูชินคันเซ็น ภายในเมืองมีรถรางใช้งานสะดวก และยังมีรถบัสจากสนามบินนางาซากิด้วย',
+        '可从博多搭乘特急或经由西九州新干线前往长崎，市内有便利的有轨电车，也有巴士连接长崎机场。'
+      ),
+    },
+  },
+  okinawa: {
+    naha: {
+      history: createLocalizedText(
+        'かつて琉球王国の政治と交易の中心であり、首里城を核に発展しました。戦後は復興を経て、沖縄観光の玄関口となっています。',
+        'Naha once served as the political and trading center of the Ryukyu Kingdom, growing around Shuri Castle. After postwar recovery, it became the main gateway to Okinawa tourism.',
+        'นาฮะเคยเป็นศูนย์กลางการเมืองและการค้าของอาณาจักรริวกิว โดยเติบโตรอบปราสาทชูริ หลังการฟื้นฟูหลังสงคราม เมืองนี้ก็กลายเป็นประตูหลักของการท่องเที่ยวโอกินาว่า',
+        '那霸曾是琉球王国的政治与贸易中心，以首里城为核心发展。战后重建后，这里成为冲绳旅游的主要门户。'
+      ),
+      culture_festivals: createLocalizedText(
+        '那覇大綱挽やエイサー、伝統芸能公演など、琉球文化を身近に感じられる催しが多いです。',
+        'Events such as the Naha Great Tug-of-War, Eisa performances, and traditional stage shows make Ryukyu culture easy to experience in the city.',
+        'มีงานอย่างเทศกาลชักเชือกยักษ์นาฮะ การแสดงเอสะ และการแสดงศิลปะดั้งเดิมที่ทำให้สัมผัสวัฒนธรรมริวกิวได้ใกล้ชิด',
+        '那霸大拔河、Eisa表演和传统艺能演出等活动很多，让人能近距离感受琉球文化。'
+      ),
+      things_to_do: createLocalizedText(
+        '首里城周辺、国際通り、壺屋やちむん通り、福州園、牧志公設市場などを巡るのが定番です。',
+        'Typical highlights include the Shuri area, Kokusai Street, Tsuboya Yachimun Street, Fukushuen Garden, and the Makishi Public Market.',
+        'สถานที่ยอดนิยมคือย่านชูริ ถนนโคคุไซ ถนนเครื่องปั้นดินเผาสึโบยะ สวนฟุคุชูเอ็น และตลาดสาธารณะมากิชิ',
+        '经典景点包括首里地区、国际通、壶屋烧物通、福州园以及牧志公设市场。'
+      ),
+      local_cuisine: createLocalizedText(
+        '沖縄そば、ラフテー、タコライス、海ぶどう、泡盛など、那覇だけでも沖縄料理を十分に堪能できます。',
+        'Even within Naha alone, visitors can enjoy a full range of Okinawan food such as Okinawa soba, rafute, taco rice, sea grapes, and awamori.',
+        'แค่อยู่ในนาฮะก็สามารถลองอาหารโอกินาว่าได้ครบถ้วน ทั้งโอกินาว่าโซบะ ราฟุเตะ ทาโกะไรซ์ องุ่นทะเล และอาวาโมริ',
+        '即使只在那霸，也能充分品尝冲绳荞麦面、红烧五花肉、塔可饭、海葡萄和泡盛等多种冲绳料理。'
+      ),
+      access: createLocalizedText(
+        '那覇空港からゆいレールで市内へすぐ移動でき、主要エリアは公共交通でも回りやすいです。',
+        'From Naha Airport, the Yui Rail reaches the city very quickly, and the main urban areas are easy to explore by public transport.',
+        'จากสนามบินนาฮะสามารถนั่ง Yui Rail เข้าเมืองได้อย่างรวดเร็ว และย่านสำคัญต่าง ๆ ก็เที่ยวได้สะดวกด้วยขนส่งสาธารณะ',
+        '从那霸机场搭乘Yui Rail很快就能进入市区，主要区域也都适合使用公共交通游览。'
+      ),
+    },
+    churaumi: {
+      history: createLocalizedText(
+        '2002年に海洋博公園内に開館し、沖縄の海を大規模に紹介する拠点として人気を集めています。研究と教育の役割も担っています。',
+        'Opened in Ocean Expo Park in 2002, the aquarium quickly became a major place to discover Okinawa marine world on a grand scale. It also plays a role in research and education.',
+        'พิพิธภัณฑ์สัตว์น้ำแห่งนี้เปิดในอุทยาน Ocean Expo Park เมื่อปี 2002 และกลายเป็นสถานที่ยอดนิยมในการเรียนรู้โลกใต้ทะเลของโอกินาว่าในระดับใหญ่ อีกทั้งยังมีบทบาทด้านการวิจัยและการศึกษา',
+        '冲绳美丽海水族馆于2002年在海洋博公园开馆，迅速成为大型展示冲绳海洋世界的人气设施，同时也承担研究与教育功能。'
+      ),
+      culture_festivals: createLocalizedText(
+        '沖縄の海洋文化や生き物への理解を深める展示やイベントが多く、家族連れにも人気です。',
+        'Exhibits and events often focus on marine life and the ocean culture of Okinawa, making the site especially popular with families.',
+        'มีนิทรรศการและกิจกรรมมากมายที่ช่วยให้เข้าใจสิ่งมีชีวิตทะเลและวัฒนธรรมทางทะเลของโอกินาว่า จึงเป็นที่นิยมมากในหมู่ครอบครัว',
+        '这里常通过展览和活动介绍冲绳海洋生物与海洋文化，因此深受家庭游客欢迎。'
+      ),
+      things_to_do: createLocalizedText(
+        '黒潮の海水槽、イルカプログラム、マナティー館、ウミガメ館、海洋博公園の散策を組み合わせるのがおすすめです。',
+        'Recommended highlights include the Kuroshio Sea tank, dolphin programs, the manatee and sea turtle exhibits, and a walk through Ocean Expo Park.',
+        'ไฮไลต์ที่แนะนำคือแทงก์ Kuroshio Sea โปรแกรมโลมา โซนพะยูน โซนเต่าทะเล และการเดินเล่นใน Ocean Expo Park',
+        '推荐看点包括黑潮之海大水槽、海豚表演、海牛馆、海龟馆以及在海洋博公园散步。'
+      ),
+      local_cuisine: createLocalizedText(
+        '周辺の本部エリアでは沖縄そばや海鮮料理、ブルーシールアイスなどを楽しめます。',
+        'In the nearby Motobu area, visitors can enjoy Okinawa soba, seafood, and treats such as Blue Seal ice cream.',
+        'บริเวณโมโตบุรอบ ๆ สามารถหากินทั้งโอกินาว่าโซบะ อาหารทะเล และไอศกรีม Blue Seal ได้',
+        '附近的本部地区可以品尝冲绳荞麦面、海鲜料理以及Blue Seal冰淇淋等美食。'
+      ),
+      access: createLocalizedText(
+        '那覇からは高速バスやレンタカーで向かうのが一般的です。北部観光と組み合わせると効率的です。',
+        'Most visitors reach the aquarium from Naha by express bus or rental car. It combines well with a broader trip around northern Okinawa.',
+        'โดยทั่วไปนักท่องเที่ยวจะมาจากนาฮะด้วยรถบัสด่วนหรือรถเช่า และมักเที่ยวรวมกับจุดอื่นทางตอนเหนือของโอกินาว่า',
+        '大多数游客会从那霸搭乘高速巴士或自驾前来，与冲绳北部其他景点一起安排最有效率。'
+      ),
+    },
+    'ishigaki-island': {
+      history: createLocalizedText(
+        '八重山諸島の中心地として栄え、琉球文化と島嶼交易の歴史を受け継いでいます。現在は離島観光の拠点としても重要です。',
+        'Ishigaki developed as the center of the Yaeyama Islands, inheriting both Ryukyu culture and the history of island trade. It is now an important hub for island tourism.',
+        'อิชิงากิรุ่งเรืองในฐานะศูนย์กลางของหมู่เกาะยาเอยามะ รับช่วงทั้งวัฒนธรรมริวกิวและประวัติการค้าระหว่างเกาะต่าง ๆ ปัจจุบันยังเป็นฐานสำคัญสำหรับเที่ยวเกาะรอบข้าง',
+        '石垣岛作为八重山诸岛的中心而发展，承载着琉球文化与岛屿贸易历史，如今也是离岛旅游的重要枢纽。'
+      ),
+      culture_festivals: createLocalizedText(
+        '豊年祭や八重山民謡、星空文化など、南の島らしい伝統が残ります。のんびりした島時間も魅力です。',
+        'Harvest festivals, Yaeyama folk songs, and a strong star-gazing culture preserve the spirit of the southern islands. The unhurried island pace is part of the appeal.',
+        'ยังคงมีประเพณีแบบเกาะใต้ เช่น เทศกาลเก็บเกี่ยว เพลงพื้นบ้านยาเอยามะ และวัฒนธรรมดูดาว จังหวะชีวิตช้า ๆ บนเกาะก็เป็นเสน่ห์สำคัญเช่นกัน',
+        '丰年祭、八重山民谣和浓厚的观星文化保留了南方岛屿特色，而悠闲的岛上节奏本身也是魅力所在。'
+      ),
+      things_to_do: createLocalizedText(
+        '川平湾、シュノーケリングやダイビング、石垣島鍾乳洞、離島ターミナルからの周遊が人気です。',
+        'Kabira Bay, snorkeling and diving, Ishigaki limestone cave, and island hopping from the ferry terminal are among the top activities.',
+        'กิจกรรมยอดนิยมคือไปอ่าวคาบิระ ดำน้ำตื้นหรือดำน้ำลึก เที่ยวถ้ำหินปูนอิชิงากิ และนั่งเรือไปเกาะอื่นจากท่าเรือหลัก',
+        '热门活动包括前往川平湾、浮潜与潜水、参观石垣岛钟乳洞，以及从离岛码头出发跳岛游。'
+      ),
+      local_cuisine: createLocalizedText(
+        '石垣牛、八重山そば、南国フルーツ、島料理の数々が人気で、カフェ文化も充実しています。',
+        'Ishigaki beef, Yaeyama soba, tropical fruits, and island-style dishes are all popular, and the cafe scene is lively as well.',
+        'มีของกินเด่นอย่างเนื้ออิชิงากิ ยาเอยามะโซบะ ผลไม้เมืองร้อน และอาหารสไตล์เกาะ อีกทั้งคาเฟ่บนเกาะก็น่าสนใจมาก',
+        '石垣牛、八重山荞麦面、热带水果和各类岛屿料理都很受欢迎，当地咖啡馆文化也很活跃。'
+      ),
+      access: createLocalizedText(
+        '新石垣空港から市街地へバスで移動でき、離島ターミナルから竹富島や西表島へも渡れます。',
+        'Buses connect New Ishigaki Airport to the town area, and the ferry terminal provides access to islands such as Taketomi and Iriomote.',
+        'มีรถบัสจากสนามบินใหม่อิชิงากิไปยังตัวเมือง และจากท่าเรือหลักก็สามารถนั่งเรือไปทาเคโทมิหรืออิริโอโมเตะได้',
+        '从新石垣机场可搭乘巴士前往市区，而离岛码头则可前往竹富岛、西表岛等周边岛屿。'
+      ),
+    },
+    'taketomi-island': {
+      history: createLocalizedText(
+        '伝統的な琉球集落の景観が大切に保存されており、重要伝統的建造物群保存地区にも選定されています。',
+        'The island carefully preserves the landscape of a traditional Ryukyu village and has been designated as an important preservation district for historic buildings.',
+        'เกาะแห่งนี้อนุรักษ์ภูมิทัศน์ของหมู่บ้านริวกิวดั้งเดิมไว้อย่างดี และยังได้รับการขึ้นทะเบียนเป็นเขตอนุรักษ์กลุ่มอาคารประวัติศาสตร์สำคัญ',
+        '竹富岛精心保存着传统琉球村落景观，并被指定为重要传统建筑群保存地区。'
+      ),
+      culture_festivals: createLocalizedText(
+        '種子取祭やミンサー織など、島独自の伝統文化が今も受け継がれています。赤瓦の家並みと白砂の道がその象徴です。',
+        'Island traditions such as the Tanedori Festival and Minsa weaving are still alive today. Red-tiled houses and white sand roads are visual symbols of this culture.',
+        'วัฒนธรรมเฉพาะของเกาะ เช่น เทศกาลทาเนะโดริและการทอผ้ามินซะ ยังสืบทอดมาถึงปัจจุบัน บ้านหลังคากระเบื้องแดงกับถนนทรายขาวคือสัญลักษณ์ของเกาะนี้',
+        '种子取祭和民纱织等岛上独特传统至今仍被传承，红瓦屋顶与白沙小路就是这种文化最直观的象征。'
+      ),
+      things_to_do: createLocalizedText(
+        '水牛車観光、集落の自転車散策、コンドイ浜やカイジ浜の訪問、夕景鑑賞が人気です。',
+        'Water buffalo cart rides, cycling through the village, visits to Kondoi Beach and Kaiji Beach, and sunset viewing are among the most popular activities.',
+        'กิจกรรมยอดนิยมคือทัวร์รถลากควายน้ำ ปั่นจักรยานชมหมู่บ้าน ไปหาดคอนไดและหาดไคจิ และชมพระอาทิตย์ตก',
+        '最受欢迎的活动包括乘坐水牛车、骑行穿梭村落、前往Kondoi海滩和Kaiji海滩，以及欣赏日落。'
+      ),
+      local_cuisine: createLocalizedText(
+        '八重山そば、沖縄ぜんざい、サーターアンダギーなど、素朴で島らしい味が楽しめます。',
+        'Yaeyama soba, Okinawan zenzai, and sata andagi offer simple island flavors that suit the relaxed atmosphere.',
+        'มีรสชาติเรียบง่ายแบบเกาะ เช่น ยาเอยามะโซบะ โอกินาว่าเซ็นไซ และซาต้าอันดางิ ซึ่งเข้ากับบรรยากาศสบาย ๆ ของเกาะมาก',
+        '八重山荞麦面、冲绳善哉和沙翁等美食朴实而充满岛屿风味，与悠闲氛围十分契合。'
+      ),
+      access: createLocalizedText(
+        '石垣島からフェリーで約10分ほどと近く、日帰りでも訪れやすいです。島内移動は徒歩や自転車が基本です。',
+        'Taketomi is only about ten minutes from Ishigaki by ferry, making it easy to visit as a day trip. Walking and cycling are the main ways to get around.',
+        'จากอิชิงากินั่งเรือเฟอร์รีเพียงประมาณ 10 นาที จึงเหมาะกับการเที่ยวแบบวันเดียว การเดินและปั่นจักรยานคือวิธีหลักในการเที่ยวบนเกาะ',
+        '从石垣岛搭乘渡轮约10分钟即可到达，非常适合一日游。岛上主要依靠步行和骑行移动。'
+      ),
+    },
+  },
+};
+
+export const REGIONS_DATA: Region[] = BASE_REGIONS_DATA.map((region) => ({
+  ...region,
+  ...REGION_SUPPLEMENTS[region.id],
+  places: region.places.map((place) => ({
+    ...place,
+    ...PLACE_SUPPLEMENTS[region.id]?.[place.id],
+  })),
+}));
