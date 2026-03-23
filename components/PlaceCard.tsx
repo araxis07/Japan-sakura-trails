@@ -12,63 +12,135 @@ const PlaceCard: React.FC<PlaceCardProps> = ({ place, currentLanguage, regionId,
   const [imageLoaded, setImageLoaded] = useState(false);
   const isAsianFont = [Language.JA, Language.TH, Language.ZH].includes(currentLanguage);
   const textFontFamily = isAsianFont ? 'font-jp' : 'font-sans';
-  const titleFontFamily = isAsianFont ? 'font-jp font-semibold' : 'font-sans font-semibold';
+  const titleFontFamily = isAsianFont ? 'font-jp font-semibold' : 'font-display font-semibold';
+  const fallbackImage =
+    'https://images.unsplash.com/photo-1542051841857-5f90071e7989?ixlib=rb-4.0.3&auto=format&fit=crop&w=900&q=80';
 
   const handlePlaceClick = () => {
     onNavigate(`#/place/${regionId}/${place.id}`);
   };
 
-  const fallbackImage = 'https://images.unsplash.com/photo-1542051841857-5f90071e7989?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=800&q=80';
+  const badgeText = {
+    [Language.JA]: 'おすすめ',
+    [Language.EN]: 'Featured',
+    [Language.TH]: 'แนะนำ',
+    [Language.ZH]: '精选',
+  };
+
+  const viewDetailText = {
+    [Language.JA]: '詳細を見る',
+    [Language.EN]: 'View Details',
+    [Language.TH]: 'ดูรายละเอียด',
+    [Language.ZH]: '查看详情',
+  };
+
+  const topics = [
+    {
+      label: {
+        [Language.JA]: '歴史',
+        [Language.EN]: 'History',
+        [Language.TH]: 'ประวัติ',
+        [Language.ZH]: '历史',
+      },
+      active: Boolean(place.history),
+    },
+    {
+      label: {
+        [Language.JA]: '文化',
+        [Language.EN]: 'Culture',
+        [Language.TH]: 'วัฒนธรรม',
+        [Language.ZH]: '文化',
+      },
+      active: Boolean(place.culture_festivals),
+    },
+    {
+      label: {
+        [Language.JA]: '体験',
+        [Language.EN]: 'Things To Do',
+        [Language.TH]: 'กิจกรรม',
+        [Language.ZH]: '体验',
+      },
+      active: Boolean(place.things_to_do),
+    },
+    {
+      label: {
+        [Language.JA]: '食',
+        [Language.EN]: 'Cuisine',
+        [Language.TH]: 'อาหาร',
+        [Language.ZH]: '美食',
+      },
+      active: Boolean(place.local_cuisine),
+    },
+  ]
+    .filter((topic) => topic.active)
+    .slice(0, 3);
 
   return (
-    <div 
-      className="japanese-card rounded-xl overflow-hidden transition-all duration-300 ease-in-out transform hover:-translate-y-1 hover:shadow-xl cursor-pointer group flex flex-col"
+    <button
+      type="button"
+      className="place-card-shell group"
       onClick={handlePlaceClick}
-      onKeyPress={(e) => e.key === 'Enter' && handlePlaceClick()}
-      role="link"
-      tabIndex={0}
-      aria-label={`${place.name[currentLanguage]} - ${currentLanguage === Language.JA ? '詳細を見る' : 'View Details'}`}
+      aria-label={`${place.name[currentLanguage]} - ${viewDetailText[currentLanguage]}`}
     >
-      <div className="relative overflow-hidden aspect-w-16 aspect-h-9 image-hover">
-        <div className={`transition-opacity duration-300 ${imageLoaded ? 'opacity-100' : 'opacity-0'}`}>
-          <img 
-            src={place.image || fallbackImage}
-            alt={place.name[currentLanguage]}
-            onLoad={() => setImageLoaded(true)}
-            onError={(e) => {
-              e.currentTarget.src = fallbackImage;
-              setImageLoaded(true);
-            }}
-            className="w-full h-64 object-cover transition-transform duration-700 ease-out group-hover:scale-105"
-          />
+      <div className="place-card-media">
+        {!imageLoaded && <div className="image-loading-skeleton" />}
+        <img
+          src={place.image || fallbackImage}
+          alt={place.name[currentLanguage]}
+          onLoad={() => setImageLoaded(true)}
+          onError={(event) => {
+            event.currentTarget.src = fallbackImage;
+            setImageLoaded(true);
+          }}
+          className={`${imageLoaded ? 'opacity-100' : 'opacity-0'}`}
+        />
+
+        <div className="place-badge">
+          <span className={`text-xs font-semibold uppercase tracking-[0.24em] ${textFontFamily}`}>
+            {badgeText[currentLanguage]}
+          </span>
         </div>
-        {!imageLoaded && (
-          <div className="absolute inset-0 bg-gray-200 animate-pulse">
-            <div className="w-full h-full bg-gradient-to-r from-gray-200 via-gray-300 to-gray-200"></div>
+
+        <div className="absolute inset-x-0 bottom-0 z-[2] p-5 sm:p-6">
+          <h3 className={`text-2xl text-white sm:text-[1.85rem] ${titleFontFamily}`}>
+            {place.name[currentLanguage]}
+          </h3>
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-5 p-5 sm:p-6">
+        {topics.length > 0 && (
+          <div className="flex flex-wrap gap-2">
+            {topics.map((topic) => (
+              <span key={topic.label[currentLanguage]} className={`topic-chip ${textFontFamily}`}>
+                {topic.label[currentLanguage]}
+              </span>
+            ))}
           </div>
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/30 to-transparent"></div>
-        <h3 className={`absolute bottom-0 left-0 p-6 text-xl md:text-2xl font-bold text-white ${titleFontFamily} tracking-wide [text-shadow:_2px_2px_4px_rgba(0,0,0,0.8)] w-full`}>
-          {place.name[currentLanguage]}
-        </h3>
-      </div>
-      <div className="p-6 flex-grow flex flex-col space-y-4 relative z-10">
-        <p className={`text-base text-gray-700 ${textFontFamily} leading-relaxed line-clamp-3 flex-grow`}>
+
+        <p className={`truncate-3 text-sm leading-7 text-sakura-text-light sm:text-base ${textFontFamily}`}>
           {place.description[currentLanguage]}
         </p>
-        <div className="pt-4 border-t border-pink-100">
-          <span 
-            className={`inline-flex items-center text-sm font-medium text-pink-600 group-hover:text-pink-700 transition-colors duration-200 ${textFontFamily}`}
-            aria-hidden="true" 
-          >
-            {currentLanguage === Language.JA ? '詳細を見る →' : 
-             currentLanguage === Language.TH ? 'ดูรายละเอียด →' :
-             currentLanguage === Language.ZH ? '查看详情 →' :
-             'View Details →'}
+
+        <div className="mt-auto flex items-center justify-between border-t border-sakura-pink-soft/70 pt-4">
+          <span className={`text-sm font-semibold tracking-[0.2em] uppercase text-sakura-deep-pink ${textFontFamily}`}>
+            {viewDetailText[currentLanguage]}
+          </span>
+          <span className="inline-flex h-10 w-10 items-center justify-center rounded-full bg-sakura-pink-soft/70 text-sakura-deep-pink transition-transform duration-300 group-hover:translate-x-1">
+            <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" aria-hidden="true">
+              <path
+                d="M5 12h14M13 6l6 6-6 6"
+                stroke="currentColor"
+                strokeWidth="1.8"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
           </span>
         </div>
       </div>
-    </div>
+    </button>
   );
 };
 

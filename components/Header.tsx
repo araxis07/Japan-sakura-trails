@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Language, LocalizedText } from '../types';
 import LanguageToggle from './LanguageToggle';
 
@@ -6,6 +6,8 @@ interface HeaderProps {
   currentLanguage: Language;
   onLanguageChange: (lang: Language) => void;
   onTitleClick: () => void;
+  onExploreClick: () => void;
+  isDetailPage: boolean;
 }
 
 const siteTitle: LocalizedText = {
@@ -22,70 +24,84 @@ const siteSubtitle: LocalizedText = {
   [Language.ZH]: '日本旅行指南',
 };
 
-const CherryBlossomIcon = () => (
-  <svg 
-    viewBox="0 0 24 24" 
-    className="w-8 h-8 md:w-10 md:h-10 text-pink-500 group-hover:text-pink-600 transition-colors duration-300"
-    fill="none"
-    xmlns="http://www.w3.org/2000/svg"
-  >
+const exploreText: LocalizedText = {
+  [Language.JA]: '地域を見る',
+  [Language.EN]: 'Explore Regions',
+  [Language.TH]: 'ดูภูมิภาค',
+  [Language.ZH]: '查看地区',
+};
+
+const allRegionsText: LocalizedText = {
+  [Language.JA]: '地域一覧',
+  [Language.EN]: 'All Regions',
+  [Language.TH]: 'ทุกภูมิภาค',
+  [Language.ZH]: '全部地区',
+};
+
+const BlossomMark = () => (
+  <svg viewBox="0 0 32 32" fill="none" className="h-6 w-6" aria-hidden="true">
     <path
-      d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.41 0-8-3.59-8-8s3.59-8 8-8 8 3.59 8 8-3.59 8-8 8zm-1.2-11.55c-.49-.31-1.12-.21-1.46.29-.33.5-.19 1.17.3 1.46.74.46 1.02 1.37.68 2.14-.34.77-1.21 1.17-2.02.93-.81-.24-1.4-.95-1.4-1.77 0-.32.09-.63.25-.9A2.91 2.91 0 008.5 10c-.97 0-1.84.46-2.42 1.21-.58.75-.79 1.72-.54 2.61.25.89.96 1.59 1.87 1.84.91.25 1.85-.03 2.53-.63.2-.18.43-.32.67-.4.59-.21 1.24.03 1.49.61.25.58.01 1.23-.58 1.48-.93.4-1.98.3-2.8-.27-.82-.57-1.32-1.46-1.32-2.42 0-1.3.84-2.4 2-2.82.32-.11.65-.18.98-.18.5 0 .98.15 1.38.45.49.31 1.12.21 1.46-.29.33-.51.19-1.18-.3-1.47z"
+      d="M16 4.667c1.95 0 3.996 1.058 5.243 2.732 1.224-.145 2.707.234 3.881 1.115 2.25 1.69 3.103 4.756 2.083 7.358 1.02 2.603.167 5.67-2.083 7.359-1.174.88-2.657 1.26-3.88 1.114C19.995 26.275 17.95 27.333 16 27.333s-3.996-1.058-5.243-2.732c-1.224.146-2.707-.234-3.88-1.114-2.251-1.69-3.104-4.756-2.084-7.359-1.02-2.602-.167-5.668 2.083-7.358 1.174-.88 2.657-1.26 3.88-1.115C12.005 5.725 14.05 4.667 16 4.667Zm0 6.166c-1.105 0-2.119.635-2.602 1.63-.484.995-.35 2.174.344 3.036.694.861 1.826 1.254 2.925 1.014 1.1-.24 1.975-1.07 2.259-2.143.284-1.073-.072-2.214-.918-2.94a3.137 3.137 0 0 0-2.008-.597Z"
       fill="currentColor"
+      opacity="0.95"
     />
   </svg>
 );
 
-const Header: React.FC<HeaderProps> = ({ currentLanguage, onLanguageChange, onTitleClick }) => {
+const Header: React.FC<HeaderProps> = ({
+  currentLanguage,
+  onLanguageChange,
+  onTitleClick,
+  onExploreClick,
+  isDetailPage,
+}) => {
   const [isScrolled, setIsScrolled] = useState(false);
   const isAsianFont = [Language.JA, Language.TH, Language.ZH].includes(currentLanguage);
-  const titleFontFamily = isAsianFont ? 'font-jp' : 'font-sans';
+  const titleFontFamily = isAsianFont ? 'font-jp font-bold' : 'font-display font-semibold';
+  const bodyFont = isAsianFont ? 'font-jp' : 'font-sans';
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20);
+      setIsScrolled(window.scrollY > 16);
     };
+
     window.addEventListener('scroll', handleScroll);
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
-  
+
   return (
-    <header 
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 
-        ${isScrolled 
-          ? 'bg-white/95 backdrop-blur-lg shadow-lg' 
-          : 'bg-transparent'}`}
-    >
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 py-4 sm:py-5">
-        <div className="flex items-center justify-between">
+    <header className="fixed left-0 right-0 top-0 z-50 px-4 pt-4 sm:px-6 lg:px-8 lg:pt-5">
+      <div className="mx-auto max-w-7xl">
+        <div className={`header-shell ${isScrolled ? 'header-shell--scrolled' : ''}`}>
           <button
+            type="button"
             onClick={onTitleClick}
-            className="group flex items-center space-x-3 focus:outline-none focus:ring-2 focus:ring-pink-500 focus:ring-offset-2 rounded-lg px-2 py-1"
-            aria-label={currentLanguage === Language.JA ? "ホームページへ" : "Go to homepage"}
+            className="group flex items-center gap-3 rounded-full px-2 py-1 text-left transition-transform duration-300 hover:-translate-y-0.5 focus:outline-none"
+            aria-label={currentLanguage === Language.JA ? 'ホームへ戻る' : 'Go to homepage'}
           >
-            <CherryBlossomIcon />
-            <div className="flex flex-col">
-              <h1 className={`text-2xl sm:text-3xl font-bold 
-                ${isScrolled ? 'text-gray-800' : 'text-pink-600'} 
-                group-hover:text-pink-500 transition-colors duration-300 ${titleFontFamily}`}
-              >
+            <span className="brand-mark">
+              <BlossomMark />
+            </span>
+
+            <span className="min-w-0">
+              <span className={`block truncate text-xl leading-none text-sakura-text sm:text-2xl ${titleFontFamily}`}>
                 {siteTitle[currentLanguage]}
-              </h1>
-              <p className={`text-sm sm:text-base 
-                ${isScrolled ? 'text-gray-600' : 'text-gray-700'} 
-                group-hover:text-gray-800 transition-colors duration-300 ${titleFontFamily}`}
-              >
+              </span>
+              <span className={`mt-1 block truncate text-xs uppercase tracking-[0.22em] text-sakura-text-light sm:text-[0.72rem] ${bodyFont}`}>
                 {siteSubtitle[currentLanguage]}
-              </p>
-            </div>
+              </span>
+            </span>
           </button>
 
-          <div className="flex items-center space-x-4">
-            <LanguageToggle 
+          <div className="flex flex-wrap items-center justify-end gap-2 sm:gap-3">
+            <button type="button" onClick={onExploreClick} className="secondary-cta hidden sm:inline-flex">
+              {isDetailPage ? allRegionsText[currentLanguage] : exploreText[currentLanguage]}
+            </button>
+
+            <LanguageToggle
               currentLanguage={currentLanguage}
               onLanguageChange={onLanguageChange}
-              className={`${isScrolled ? 'bg-gray-100 hover:bg-gray-200' : 'bg-white/90 hover:bg-white'} 
-                shadow-md hover:shadow-lg transition-all duration-300`}
+              className={bodyFont}
             />
           </div>
         </div>

@@ -17,11 +17,6 @@ export default defineConfig(({ mode }) => {
     },
     css: {
       postcss: './postcss.config.js',
-      preprocessorOptions: {
-        scss: {
-          additionalData: `@import "./styles/variables.scss";`
-        }
-      }
     },
     build: {
       target: 'esnext',
@@ -31,7 +26,6 @@ export default defineConfig(({ mode }) => {
         output: {
           manualChunks: {
             'vendor': ['react', 'react-dom'],
-            'styles': ['./src/styles/index.css']
           }
         }
       }

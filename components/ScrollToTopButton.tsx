@@ -1,16 +1,16 @@
-
-import React, { useState, useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 
 const ScrollToTopButton: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
 
-  const toggleVisibility = () => {
-    if (window.scrollY > 300) {
-      setIsVisible(true);
-    } else {
-      setIsVisible(false);
-    }
-  };
+  useEffect(() => {
+    const toggleVisibility = () => {
+      setIsVisible(window.scrollY > 320);
+    };
+
+    window.addEventListener('scroll', toggleVisibility);
+    return () => window.removeEventListener('scroll', toggleVisibility);
+  }, []);
 
   const scrollToTop = () => {
     window.scrollTo({
@@ -19,34 +19,28 @@ const ScrollToTopButton: React.FC = () => {
     });
   };
 
-  useEffect(() => {
-    window.addEventListener('scroll', toggleVisibility);
-    return () => {
-      window.removeEventListener('scroll', toggleVisibility);
-    };
-  }, []);
+  if (!isVisible) {
+    return null;
+  }
 
   return (
-    <>
-      {isVisible && (
-        <button
-          onClick={scrollToTop}
-          className="fixed bottom-6 right-6 md:bottom-8 md:right-8 bg-sakura-deep-pink hover:bg-opacity-90 text-white p-3.5 rounded-full shadow-xl transition-all duration-300 ease-in-out focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sakura-deep-pink focus:ring-opacity-50 hover:scale-110"
-          aria-label="Scroll to top"
-          title="Scroll to top"
-        >
-          <svg 
-            xmlns="http://www.w3.org/2000/svg" 
-            viewBox="0 0 24 24" 
-            fill="currentColor" 
-            className="w-6 h-6"
-            aria-hidden="true" 
-          >
-            <path fillRule="evenodd" d="M12 4.03a.75.75 0 0 1 .75.75v14.44l6.22-6.22a.75.75 0 1 1 1.06 1.06l-7.5 7.5a.75.75 0 0 1-1.06 0l-7.5-7.5a.75.75 0 1 1 1.06-1.06l6.22 6.22V4.78a.75.75 0 0 1 .75-.75Z" clipRule="evenodd" transform="rotate(180 12 12)" />
-          </svg>
-        </button>
-      )}
-    </>
+    <button
+      type="button"
+      onClick={scrollToTop}
+      className="fixed bottom-5 right-5 z-40 inline-flex h-14 w-14 items-center justify-center rounded-full border border-white/60 bg-white/80 text-sakura-deep-pink shadow-card backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:shadow-elegant focus:outline-none sm:bottom-8 sm:right-8"
+      aria-label="Scroll to top"
+      title="Scroll to top"
+    >
+      <svg viewBox="0 0 24 24" fill="none" className="h-6 w-6" aria-hidden="true">
+        <path
+          d="M12 19V5m0 0-6 6m6-6 6 6"
+          stroke="currentColor"
+          strokeWidth="1.8"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+        />
+      </svg>
+    </button>
   );
 };
 

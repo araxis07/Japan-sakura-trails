@@ -1,34 +1,142 @@
-
 import React from 'react';
 import { Place, Region, Language, LocalizedText } from '../types';
 
 interface PlacePageProps {
   place: Place;
-  region: Region; // To display region name or link back
+  region: Region;
   currentLanguage: Language;
   onNavigate: (path: string) => void;
 }
 
 const PlacePage: React.FC<PlacePageProps> = ({ place, region, currentLanguage, onNavigate }) => {
   const isAsianFont = [Language.JA, Language.TH, Language.ZH].includes(currentLanguage);
-  const titleFontFamily = isAsianFont ? 'font-jp font-bold' : 'font-sans font-bold';
+  const titleFontFamily = isAsianFont ? 'font-jp font-bold' : 'font-display font-semibold';
   const bodyFont = isAsianFont ? 'font-jp' : 'font-sans';
 
   const backButtonText: LocalizedText = {
-    [Language.JA]: `全ての地域に戻る`,
-    [Language.EN]: `Back to All Regions`,
-    [Language.TH]: `กลับไปยังทุกภูมิภาค`,
-    [Language.ZH]: `返回所有地区`,
-  };
-  
-  const pageTitleText: LocalizedText = {
-    [Language.JA]: place.name[Language.JA],
-    [Language.EN]: place.name[Language.EN],
-    [Language.TH]: place.name[Language.TH],
-    [Language.ZH]: place.name[Language.ZH],
+    [Language.JA]: 'すべての地域へ戻る',
+    [Language.EN]: 'Back to All Regions',
+    [Language.TH]: 'กลับไปยังทุกภูมิภาค',
+    [Language.ZH]: '返回全部地区',
   };
 
-  // Update document title
+  const regionLabelText: LocalizedText = {
+    [Language.JA]: '地域',
+    [Language.EN]: 'Region',
+    [Language.TH]: 'ภูมิภาค',
+    [Language.ZH]: '地区',
+  };
+
+  const overviewTitle: LocalizedText = {
+    [Language.JA]: '概要',
+    [Language.EN]: 'Overview',
+    [Language.TH]: 'ภาพรวม',
+    [Language.ZH]: '概览',
+  };
+
+  const regionStoryTitle: LocalizedText = {
+    [Language.JA]: '地域について',
+    [Language.EN]: 'About the Region',
+    [Language.TH]: 'ภาพของภูมิภาค',
+    [Language.ZH]: '地区背景',
+  };
+
+  const quickNavigationTitle: LocalizedText = {
+    [Language.JA]: 'クイックナビ',
+    [Language.EN]: 'Quick Navigation',
+    [Language.TH]: 'ทางลัดภายในหน้า',
+    [Language.ZH]: '快速导航',
+  };
+
+  const sectionCountTitle: LocalizedText = {
+    [Language.JA]: 'ガイド項目',
+    [Language.EN]: 'Guide Sections',
+    [Language.TH]: 'หัวข้อคู่มือ',
+    [Language.ZH]: '导览分区',
+  };
+
+  const continueTitle: LocalizedText = {
+    [Language.JA]: '次の場所も見てみる',
+    [Language.EN]: 'Keep exploring the trail',
+    [Language.TH]: 'ดูจุดหมายต่อในเส้นทางนี้',
+    [Language.ZH]: '继续探索这条旅行线',
+  };
+
+  const continueBody: LocalizedText = {
+    [Language.JA]: '地域一覧に戻ると、他のエリアやスポットも同じ流れで比較できます。',
+    [Language.EN]: 'Return to the region collection to compare more atmospheres and destinations with the same flow.',
+    [Language.TH]: 'กลับไปยังหน้ารวมภูมิภาคเพื่อเปรียบเทียบบรรยากาศและจุดหมายอื่น ๆ ต่อได้ในรูปแบบเดียวกัน',
+    [Language.ZH]: '回到地区总览后，你可以用同样的节奏继续比较更多地区与目的地。',
+  };
+
+  const continueButton: LocalizedText = {
+    [Language.JA]: '地域一覧へ',
+    [Language.EN]: 'Return to Regions',
+    [Language.TH]: 'กลับไปดูภูมิภาค',
+    [Language.ZH]: '返回地区页',
+  };
+
+  const sectionTitles = {
+    history: {
+      [Language.JA]: '歴史',
+      [Language.EN]: 'History',
+      [Language.TH]: 'ประวัติศาสตร์',
+      [Language.ZH]: '历史',
+    },
+    culture_festivals: {
+      [Language.JA]: '文化と祭り',
+      [Language.EN]: 'Culture & Festivals',
+      [Language.TH]: 'วัฒนธรรมและเทศกาล',
+      [Language.ZH]: '文化与庆典',
+    },
+    things_to_do: {
+      [Language.JA]: '体験できること',
+      [Language.EN]: 'Things To Do',
+      [Language.TH]: 'กิจกรรมที่น่าสนใจ',
+      [Language.ZH]: '推荐体验',
+    },
+    local_cuisine: {
+      [Language.JA]: '郷土料理',
+      [Language.EN]: 'Local Cuisine',
+      [Language.TH]: 'อาหารท้องถิ่น',
+      [Language.ZH]: '当地美食',
+    },
+    access: {
+      [Language.JA]: 'アクセス',
+      [Language.EN]: 'Access',
+      [Language.TH]: 'การเดินทาง',
+      [Language.ZH]: '交通方式',
+    },
+  } as const;
+
+  const detailSections = [
+    {
+      id: 'history',
+      title: sectionTitles.history,
+      content: place.history?.[currentLanguage],
+    },
+    {
+      id: 'culture-festivals',
+      title: sectionTitles.culture_festivals,
+      content: place.culture_festivals?.[currentLanguage],
+    },
+    {
+      id: 'things-to-do',
+      title: sectionTitles.things_to_do,
+      content: place.things_to_do?.[currentLanguage],
+    },
+    {
+      id: 'local-cuisine',
+      title: sectionTitles.local_cuisine,
+      content: place.local_cuisine?.[currentLanguage],
+    },
+    {
+      id: 'access',
+      title: sectionTitles.access,
+      content: place.access?.[currentLanguage],
+    },
+  ].filter((section) => Boolean(section.content));
+
   React.useEffect(() => {
     const siteBaseTitle: LocalizedText = {
       [Language.JA]: '桜の道しるべ',
@@ -36,90 +144,142 @@ const PlacePage: React.FC<PlacePageProps> = ({ place, region, currentLanguage, o
       [Language.TH]: 'เส้นทางซากุระ',
       [Language.ZH]: '樱花之道',
     };
+
     document.title = `${place.name[currentLanguage]} | ${region.name[currentLanguage]} - ${siteBaseTitle[currentLanguage]}`;
   }, [place, region, currentLanguage]);
 
+  const scrollToSection = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
+
   return (
-    <div className={`bg-sakura-bg-soft min-h-full`}> {/* Ensures full height for this view */}
-      <div className={`container mx-auto px-4 sm:px-6 py-8 md:py-12 ${bodyFont}`}>
-        <button
-          onClick={() => onNavigate('#/')}
-          className={`mb-8 inline-flex items-center px-5 py-2.5 text-sm font-medium rounded-lg transition-all duration-200 
-                      bg-white text-sakura-accent hover:text-sakura-gold-tint 
-                      border border-sakura-pink-soft hover:border-sakura-gold-tint/70 shadow-subtle-pink hover:shadow-card
-                      focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-sakura-deep-pink focus:ring-opacity-50
-                      ${bodyFont}`}
-        >
-          <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 20 20" fill="currentColor" className="w-5 h-5 mr-2.5">
-            <path fillRule="evenodd" d="M17 10a.75.75 0 0 1-.75.75H5.56l3.22 3.22a.75.75 0 1 1-1.06 1.06l-4.5-4.5a.75.75 0 0 1 0-1.06l4.5-4.5a.75.75 0 0 1 1.06 1.06L5.56 9.25H16.25A.75.75 0 0 1 17 10Z" clipRule="evenodd" />
+    <div className="detail-shell">
+      <div className="flex flex-wrap items-center gap-3">
+        <button type="button" onClick={() => onNavigate('#/')} className="secondary-cta">
+          <svg viewBox="0 0 24 24" fill="none" className="h-5 w-5" aria-hidden="true">
+            <path
+              d="M19 12H5m8-6-6 6 6 6"
+              stroke="currentColor"
+              strokeWidth="1.8"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
           </svg>
           {backButtonText[currentLanguage]}
         </button>
 
-        <article className="bg-white p-6 md:p-10 rounded-2xl shadow-elegant border border-sakura-pink-soft/40">
-          <h1 className={`text-3xl md:text-4xl lg:text-5xl font-bold text-sakura-deep-pink mb-2 md:mb-3 ${titleFontFamily}`}>
-            {pageTitleText[currentLanguage]}
-          </h1>
-          <p className={`text-md md:text-lg text-sakura-gold-tint mb-6 md:mb-8 ${bodyFont} font-medium`}>
-            {`${currentLanguage === Language.JA ? '地域' : currentLanguage === Language.TH ? 'ภูมิภาค' : currentLanguage === Language.ZH ? '区域' : 'Region'}: ${region.name[currentLanguage]}`}
-          </p>
+        <span className={`detail-chip ${bodyFont}`}>
+          {regionLabelText[currentLanguage]}: {region.name[currentLanguage]}
+        </span>
 
-          <hr className="my-6 md:my-8 border-t border-sakura-pink-soft/40 rounded-full" />
-          
-          <div className="mb-8 md:mb-10 rounded-xl overflow-hidden shadow-card aspect-[16/10] border-4 border-white">
-            <img 
-              src={place.image} 
-              alt={place.name[currentLanguage]} 
-              className="w-full h-full object-cover" 
-            />
-          </div>
-
-          <div 
-            className={`prose prose-lg max-w-none ${bodyFont} text-sakura-text 
-                        leading-relaxed md:leading-loose 
-                        prose-headings:font-semibold prose-headings:text-sakura-deep-pink 
-                        prose-a:text-sakura-accent hover:prose-a:text-sakura-deep-pink prose-a:transition-colors
-                        prose-strong:text-sakura-text prose-strong:font-semibold`}
-          >
-            <p>{place.description[currentLanguage]}</p>
-
-            {place.history && (
-                <>
-                    <h2 className={`mt-8 mb-4 text-2xl font-bold text-sakura-deep-pink ${titleFontFamily}`}>History</h2>
-                    <p>{place.history[currentLanguage]}</p>
-                </>
-            )}
-
-            {place.culture_festivals && (
-                <>
-                    <h2 className={`mt-8 mb-4 text-2xl font-bold text-sakura-deep-pink ${titleFontFamily}`}>Culture & Festivals</h2>
-                    <p>{place.culture_festivals[currentLanguage]}</p>
-                </>
-            )}
-
-            {place.things_to_do && (
-                <>
-                    <h2 className={`mt-8 mb-4 text-2xl font-bold text-sakura-deep-pink ${titleFontFamily}`}>Things to Do</h2>
-                    <p>{place.things_to_do[currentLanguage]}</p>
-                </>
-            )}
-
-            {place.local_cuisine && (
-                <>
-                    <h2 className={`mt-8 mb-4 text-2xl font-bold text-sakura-deep-pink ${titleFontFamily}`}>Local Cuisine</h2>
-                    <p>{place.local_cuisine[currentLanguage]}</p>
-                </>
-            )}
-
-            {place.access && (
-                <>
-                    <h2 className={`mt-8 mb-4 text-2xl font-bold text-sakura-deep-pink ${titleFontFamily}`}>Access</h2>
-                    <p>{place.access[currentLanguage]}</p>
-                </>
-            )}
-          </div>
-        </article>
+        <span className={`detail-chip ${bodyFont}`}>
+          {detailSections.length} {sectionCountTitle[currentLanguage]}
+        </span>
       </div>
+
+      <section className="detail-hero mt-6">
+        <div className="grid lg:grid-cols-[minmax(0,1.12fr)_minmax(0,0.88fr)]">
+          <div className="detail-hero__media">
+            <img src={place.image} alt={place.name[currentLanguage]} />
+
+            <div className="absolute inset-x-0 bottom-0 z-[2] p-6 sm:p-8">
+              <p className={`text-xs font-semibold uppercase tracking-[0.28em] text-white/60 ${bodyFont}`}>
+                {regionLabelText[currentLanguage]} · {region.name[currentLanguage]}
+              </p>
+              <h1 className={`mt-3 text-4xl text-white sm:text-5xl lg:text-6xl ${titleFontFamily}`}>
+                {place.name[currentLanguage]}
+              </h1>
+            </div>
+          </div>
+
+          <div className="detail-hero__content flex flex-col gap-6">
+            <div className="space-y-4">
+              <span className="section-label">{overviewTitle[currentLanguage]}</span>
+              <p className={`text-base leading-8 text-sakura-text-light sm:text-lg ${bodyFont}`}>
+                {place.description[currentLanguage]}
+              </p>
+            </div>
+
+            <div className="grid gap-3 sm:grid-cols-2">
+              <article className="mini-panel">
+                <p className={`text-xs font-semibold uppercase tracking-[0.24em] text-sakura-deep-pink ${bodyFont}`}>
+                  {regionStoryTitle[currentLanguage]}
+                </p>
+                <p className={`mt-3 text-sm leading-7 text-sakura-text-light ${bodyFont}`}>
+                  {region.description[currentLanguage]}
+                </p>
+              </article>
+
+              <article className="mini-panel">
+                <p className={`text-xs font-semibold uppercase tracking-[0.24em] text-sakura-deep-pink ${bodyFont}`}>
+                  {sectionCountTitle[currentLanguage]}
+                </p>
+                <p className={`mt-3 text-3xl text-sakura-text ${titleFontFamily}`}>{detailSections.length}</p>
+                <p className={`mt-2 text-sm leading-7 text-sakura-text-light ${bodyFont}`}>
+                  {quickNavigationTitle[currentLanguage]}
+                </p>
+              </article>
+            </div>
+
+            {detailSections.length > 0 && (
+              <div className="space-y-3">
+                <p className={`text-xs font-semibold uppercase tracking-[0.24em] text-sakura-deep-pink ${bodyFont}`}>
+                  {quickNavigationTitle[currentLanguage]}
+                </p>
+                <div className="detail-chip-row">
+                  {detailSections.map((section) => (
+                    <button
+                      key={section.id}
+                      type="button"
+                      onClick={() => scrollToSection(section.id)}
+                      className={`detail-chip transition-transform duration-300 hover:-translate-y-0.5 ${bodyFont}`}
+                    >
+                      {section.title[currentLanguage]}
+                    </button>
+                  ))}
+                </div>
+              </div>
+            )}
+          </div>
+        </div>
+      </section>
+
+      {detailSections.length > 0 && (
+        <section className="mt-8 grid gap-5 lg:grid-cols-2">
+          {detailSections.map((section, index) => (
+            <article
+              id={section.id}
+              key={section.id}
+              className="detail-panel reveal-on-scroll scroll-mt-32"
+            >
+              <span className="detail-panel__index">{String(index + 1).padStart(2, '0')}</span>
+              <h2 className={`mt-3 text-2xl text-sakura-text sm:text-3xl ${titleFontFamily}`}>
+                {section.title[currentLanguage]}
+              </h2>
+              <p className={`mt-4 ${bodyFont}`}>{section.content}</p>
+            </article>
+          ))}
+        </section>
+      )}
+
+      <section className="mt-8">
+        <div className="surface-panel rounded-[1.8rem] p-6 sm:p-8">
+          <div className="flex flex-col gap-5 lg:flex-row lg:items-center lg:justify-between">
+            <div>
+              <p className={`text-2xl text-sakura-text sm:text-3xl ${titleFontFamily}`}>
+                {continueTitle[currentLanguage]}
+              </p>
+              <p className={`mt-3 max-w-2xl text-sm leading-7 text-sakura-text-light sm:text-base ${bodyFont}`}>
+                {continueBody[currentLanguage]}
+              </p>
+            </div>
+
+            <button type="button" onClick={() => onNavigate('#/')} className="primary-cta">
+              {continueButton[currentLanguage]}
+            </button>
+          </div>
+        </div>
+      </section>
     </div>
   );
 };
